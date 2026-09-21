@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nombres Reals ℝ · Matemàtiques 4t ESO</title>
+<meta name="description" content="Unitat didàctica de Nombres Reals per a 4t d'ESO, amb repàs per a 1r de Batxillerat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{
+  --tinta:#16233b; --tinta2:#56607a; --tinta3:#8b93a6;
+  --fons:#eef1f5; --full:#ffffff; --linia:#d5dbe4; --linia2:#e8ecf2;
+  --safir:#12508f; --safir-b:#e2ecf8;
+  --maragda:#146b4a; --maragda-b:#e0f0e8;
+  --carmi:#a8302a; --carmi-b:#fae8e6;
+  --n1:#4a7fb5; --n2:#12508f; --n3:#9a5b00; --ng:#5f3a92; --nc:#97245f;
+  --r1:3px; --r2:8px;
+  --t-xs:.72rem; --t-sm:.84rem; --t-md:.94rem; --t-base:1rem; --t-lead:1.1rem;
+  --h4:1.05rem; --h3:1.35rem;
+  --ff:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --nav:288px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--fons); color:var(--tinta);
+  font-family:var(--ff); font-size:19px; line-height:1.62;
+  font-variant-numeric:tabular-nums lining-nums;
+}
+h1,h2,h3,h4{line-height:1.18; margin:0; font-weight:600; letter-spacing:-.011em}
+p{margin:0 0 .85em}
+p:last-child{margin-bottom:0}
+a{color:var(--safir)}
+:focus-visible{outline:3px solid var(--safir); outline-offset:2px; border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- estructura ---------- */
+.embolcall{display:grid; grid-template-columns:var(--nav) minmax(0,1fr)}
+.nav{
+  position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
+  background:var(--tinta); color:#fff; padding:26px 22px 40px;
+}
+.nav .marca{font-size:var(--t-xs); color:#8fa6c9; margin-bottom:2px}
+.nav .titol{font-size:var(--h3); font-weight:700; letter-spacing:-.02em; margin-bottom:4px}
+.nav .curs{font-size:var(--t-sm); color:#98a9c4; margin-bottom:26px; line-height:1.45}
+.nav ol{list-style:none; margin:0; padding:0}
+.nav .bloc-nav{margin-bottom:16px}
+.nav .bloc-nav > a{
+  display:flex; gap:11px; align-items:baseline; text-decoration:none; color:#fff;
+  font-weight:600; font-size:var(--t-base); padding:5px 0;
+}
+.nav .bloc-nav > a .lletra{
+  flex:0 0 24px; height:24px; border:1.5px solid #4a6390; border-radius:50%;
+  display:grid; place-items:center; font-size:var(--t-xs); font-weight:700; color:#a9c0e0;
+}
+.nav .bloc-nav > a:hover .lletra, .nav .bloc-nav > a.actiu .lletra{background:#fff; color:var(--tinta); border-color:#fff}
+.nav .sub{list-style:none; margin:2px 0 0; padding:0 0 0 35px}
+.nav .sub a{display:block; color:#a9b7cd; text-decoration:none; font-size:var(--t-sm); padding:3px 0; line-height:1.4}
+.nav .sub a:hover{color:#fff}
+.nav .eines{margin-top:30px; padding-top:22px; border-top:1px solid #33405c}
+.nav .eines button{
+  width:100%; margin-bottom:9px; background:none; border:1.5px solid #4a6390; color:#cfdaea;
+  font-family:var(--ff); font-size:var(--t-sm); font-weight:500; padding:9px 12px; border-radius:var(--r2); cursor:pointer;
+}
+.nav .eines button:hover{border-color:#fff; color:#fff}
+.barra-mobil{display:none}
+
+main{min-width:0; padding:0}
+footer a{color:#8fb4e8}
+.centre{max-width:900px; padding:0 46px}
+.prosa{max-width:66ch}
+
+/* ---------- hero ---------- */
+.hero{background:var(--full); border-bottom:1px solid var(--linia); padding:52px 0 40px}
+.hero h1{font-size:clamp(2.1rem,4.6vw,3.3rem); font-weight:700; letter-spacing:-.03em}
+.hero h1 .conj{font-style:italic; font-weight:400}
+.hero .peu{color:var(--tinta2); font-size:var(--t-lead); margin-top:12px; max-width:56ch}
+.hero .fitxa{display:flex; flex-wrap:wrap; gap:28px; margin-top:30px; font-size:var(--t-sm); color:var(--tinta2)}
+.hero .fitxa div span{display:block; color:var(--tinta); font-weight:600; font-size:var(--t-base)}
+
+/* encaixos de nombres */
+.encaix{margin:34px 0 8px; max-width:640px}
+.encaix svg{width:100%; height:auto; display:block}
+
+/* ---------- blocs i seccions ---------- */
+.bloc{padding-top:56px; scroll-margin-top:58px}
+section.apartat{scroll-margin-top:58px}
+.bloc-cap{background:var(--tinta); color:#fff; padding:30px 46px 28px; margin-bottom:0}
+.bloc-cap .kicker{font-size:var(--t-sm); color:#9fb4d3; margin-bottom:5px}
+.bloc-cap h2{font-size:clamp(1.5rem,3vw,2.05rem); font-weight:700; letter-spacing:-.024em}
+.bloc-cap .resum{color:#b9c6da; font-size:var(--t-md); margin-top:10px; max-width:60ch}
+section.apartat{background:var(--full); border-bottom:1px solid var(--linia); padding:38px 0 42px}
+section.apartat > .centre > h3{
+  font-size:var(--h3); display:flex; gap:13px; align-items:baseline; margin-bottom:18px;
+}
+section.apartat > .centre > h3 .num{color:var(--safir); font-weight:700; flex:0 0 auto}
+h4{font-size:var(--h4); margin:26px 0 9px; color:var(--tinta)}
+
+/* ---------- caixes de contingut ---------- */
+.definicio{
+  border-left:4px solid var(--safir); background:var(--safir-b);
+  padding:18px 22px; border-radius:0 var(--r2) var(--r2) 0; margin:20px 0;
+}
+.definicio .etq{font-size:var(--t-xs); font-weight:600; color:var(--safir); margin-bottom:6px}
+.propietats{border:1px solid var(--linia); border-radius:var(--r2); margin:22px 0; overflow-x:auto}
+.propietats table{width:100%; border-collapse:collapse; font-size:var(--t-md)}
+.propietats caption{
+  text-align:left; padding:12px 18px; background:#f4f7fb; border-bottom:1px solid var(--linia);
+  font-weight:600; font-size:var(--t-sm);
+}
+.propietats td{padding:11px 18px; border-bottom:1px solid var(--linia2); vertical-align:middle}
+.propietats tr:last-child td{border-bottom:0}
+.propietats td:first-child{width:44%; border-right:1px solid var(--linia2)}
+.propietats td:last-child{color:var(--tinta2)}
+
+.parany{
+  border:1px solid #eccfcd; background:var(--carmi-b); border-radius:var(--r2);
+  padding:16px 20px; margin:22px 0; font-size:var(--t-md);
+}
+.parany .etq{font-weight:600; color:var(--carmi); font-size:var(--t-xs); margin-bottom:5px}
+.parany .malament, .parany .be{display:block; margin:7px 0}
+.parany .malament::before{content:'✗'; color:var(--carmi); font-weight:700; margin-right:9px}
+.parany .be::before{content:'✓'; color:var(--maragda); font-weight:700; margin-right:9px}
+
+details.desplega{border:1px solid var(--linia); border-radius:var(--r2); margin:20px 0; background:#fbfcfd}
+details.desplega > summary{
+  cursor:pointer; padding:13px 18px; font-weight:600; font-size:var(--t-md); color:var(--safir);
+  list-style:none; display:flex; gap:10px; align-items:center;
+}
+details.desplega > summary::-webkit-details-marker{display:none}
+details.desplega > summary::before{
+  content:'+'; flex:0 0 20px; height:20px; border:1.5px solid currentColor; border-radius:50%;
+  display:grid; place-items:center; font-size:var(--t-sm); line-height:1;
+}
+details.desplega[open] > summary::before{content:'–'}
+details.desplega .cos{padding:2px 18px 18px; font-size:var(--t-md)}
+
+.nota-peda{
+  border-top:2px solid var(--tinta); padding:16px 0 0; margin:34px 0 0; font-size:var(--t-md); color:var(--tinta2);
+  max-width:68ch;
+}
+.nota-peda .etq{font-weight:600; color:var(--tinta); font-size:var(--t-xs); margin-bottom:5px}
+.curri{
+  display:flex; flex-wrap:wrap; gap:8px; margin:0 0 24px;
+}
+.curri span{
+  font-size:var(--t-xs); background:#eef2f7; border:1px solid var(--linia); color:var(--tinta2);
+  padding:4px 10px; border-radius:100px;
+}
+.bat{
+  border:1px dashed var(--n3); border-radius:var(--r2); padding:15px 19px; margin:22px 0;
+  font-size:var(--t-md); background:#fdf8f0;
+}
+.bat .etq{font-weight:600; color:var(--n3); font-size:var(--t-xs); margin-bottom:5px}
+
+/* ---------- exercicis ---------- */
+.ex-cap{display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; margin:6px 0 18px}
+.filtres{display:flex; flex-wrap:wrap; gap:7px}
+.filtres button{
+  font-family:var(--ff); font-size:var(--t-sm); font-weight:500; padding:6px 13px; cursor:pointer;
+  background:var(--full); border:1.5px solid var(--linia); color:var(--tinta2); border-radius:100px;
+}
+.filtres button[aria-pressed=true]{background:var(--tinta); border-color:var(--tinta); color:#fff}
+.ex{border:1px solid var(--linia); border-radius:var(--r2); background:var(--full); margin-bottom:13px; overflow:hidden}
+.ex.amaga{display:none}
+.ex-top{display:flex; gap:14px; padding:15px 18px}
+.ex-codi{
+  flex:0 0 auto; display:flex; flex-direction:column; gap:5px; align-items:flex-start; min-width:74px;
+}
+.ex-codi .num{font-weight:700; font-size:var(--t-sm); color:var(--tinta)}
+.ex-codi .niv{
+  font-size:var(--t-xs); font-weight:600; color:#fff; padding:2px 7px; border-radius:var(--r1); white-space:nowrap;
+}
+.niv-N1{background:var(--n1)} .niv-N2{background:var(--n2)} .niv-N3{background:var(--n3)}
+.niv-G{background:var(--ng)} .niv-C{background:var(--nc)}
+.ex-cos{flex:1 1 auto; min-width:0}
+.ex-enun{font-size:var(--t-base)}
+.ex-enun ol{padding-left:1.4em; margin:.5em 0}
+.ex-enun li{margin-bottom:.3em}
+.ex-eines{display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin-top:13px}
+.ex-eines input{
+  font-family:var(--ff); font-size:var(--t-md); padding:7px 11px; border:1.5px solid var(--linia);
+  border-radius:var(--r2); width:190px; background:var(--full); color:var(--tinta);
+}
+.ex-eines button{
+  font-family:var(--ff); font-size:var(--t-sm); font-weight:500; padding:7px 14px; cursor:pointer;
+  border-radius:var(--r2); border:1.5px solid var(--safir); background:var(--safir); color:#fff;
+}
+.ex-eines button.sec{background:var(--full); color:var(--safir)}
+.retro{margin-top:10px; font-size:var(--t-md); padding:10px 14px; border-radius:var(--r2); display:none}
+.retro.ok{display:block; background:var(--maragda-b); color:var(--maragda); border:1px solid #b8ddc9}
+.retro.ko{display:block; background:var(--carmi-b); color:var(--carmi); border:1px solid #eccfcd}
+.ex-sol{border-top:1px solid var(--linia2); background:#f8fafc; padding:15px 18px; font-size:var(--t-md); display:none}
+.ex-sol.mostra{display:block}
+.ex-sol .etq{font-size:var(--t-xs); font-weight:600; color:var(--tinta2); margin-bottom:6px}
+.ex-sol .passos{margin:0; padding-left:1.25em}
+.ex-sol .passos li{margin-bottom:.45em}
+.origen{font-size:var(--t-xs); color:var(--tinta3); margin-top:11px}
+
+/* modal */
+dialog.modal{
+  border:0; border-radius:var(--r2); padding:0; max-width:660px; width:calc(100% - 40px);
+  box-shadow:0 18px 50px rgba(22,35,59,.28); color:var(--tinta);
+}
+dialog.modal::backdrop{background:rgba(22,35,59,.55)}
+dialog.modal .m-cap{
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding:16px 22px; border-bottom:1px solid var(--linia); background:#f4f7fb;
+}
+dialog.modal .m-cap h3{font-size:var(--h4)}
+dialog.modal .m-cos{padding:20px 22px 24px; font-size:var(--t-base); max-height:66vh; overflow:auto}
+dialog.modal button.tanca{
+  background:none; border:0; font-size:1.5rem; line-height:1; cursor:pointer; color:var(--tinta2); padding:0 4px;
+}
+
+/* recta real interactiva */
+.eina-recta{border:1px solid var(--linia); border-radius:var(--r2); background:#fbfcfd; padding:20px; margin:24px 0}
+.eina-recta h4{margin-top:0}
+.eina-recta .intro{font-size:var(--t-md); color:var(--tinta2); margin-bottom:14px}
+.figura{margin:24px 0}
+.figura svg{width:100%; height:auto; display:block}
+.figura figcaption{font-size:var(--t-sm); color:var(--tinta2); margin-top:8px}
+.rc-controls{display:flex; flex-wrap:wrap; gap:22px; margin-bottom:18px}
+.rc-grup{display:flex; gap:7px; align-items:center; font-size:var(--t-sm)}
+.rc-grup b{font-style:italic; font-weight:600; min-width:14px}
+.rc-grup select, .rc-grup input{
+  font-family:var(--ff); font-size:var(--t-sm); padding:5px 7px; border:1.5px solid var(--linia);
+  border-radius:var(--r1); background:var(--full); color:var(--tinta);
+}
+.rc-grup input{width:62px; text-align:center}
+.rc-svg{background:var(--full); border:1px solid var(--linia2); border-radius:var(--r1)}
+.rc-svg svg{width:100%; height:auto; display:block}
+.rc-result{display:flex; flex-wrap:wrap; gap:26px; margin-top:14px; font-size:var(--t-base)}
+.rc-result div span{display:block; font-size:var(--t-xs); color:var(--tinta2); font-weight:600}
+
+.katex{font-size:1.10em}
+.katex-display{margin:.85em 0; overflow-x:auto; overflow-y:hidden; padding-bottom:4px}
+.katex-display>.katex{font-size:1.22em}
+.ex-enun .katex-display>.katex{font-size:1.26em}
+.propietats .katex{font-size:1.04em}
+
+/* apèndix de solucions: només per a impressió */
+.apendix{display:none}
+
+@media (max-width:1000px){
+  .embolcall{grid-template-columns:1fr}
+  .nav{display:none}
+  .barra-mobil{
+    display:flex; position:sticky; top:0; z-index:30; background:var(--tinta); color:#fff;
+    padding:10px 18px; gap:12px; align-items:center; justify-content:space-between;
+  }
+  .barra-mobil strong{font-size:var(--t-base)}
+  .barra-mobil select{
+    font-family:var(--ff); font-size:var(--t-sm); padding:6px 8px; border-radius:var(--r1);
+    border:1px solid #4a6390; background:var(--tinta); color:#fff; max-width:52%;
+  }
+  .centre{padding:0 20px}
+  .bloc-cap{padding:26px 20px 24px}
+  body{font-size:17.5px}
+  .ex-top{flex-direction:column; gap:9px}
+  .ex-codi{flex-direction:row; align-items:center}
+}
+
+/* projecció 4:3 i pissarra: prioritat a la mida de lletra */
+@media (min-aspect-ratio:5/4) and (min-width:1280px){
+  body{font-size:20.5px}
+}
+
+.rc-svg{overflow-x:auto}
+.rc-svg svg{min-width:600px}
+
+@media print{
+  :root{--fons:#fff}
+  body{font-size:11pt; line-height:1.42; background:#fff}
+  .nav,.barra-mobil,.filtres,.ex-eines,.eina-recta,.retro,.encaix{display:none!important}
+  .embolcall{display:block}
+  .centre{max-width:none; padding:0}
+  .hero{padding:0 0 14pt; border-bottom:2px solid #000}
+  .hero .fitxa{gap:14pt}
+  .bloc{padding-top:18pt; break-before:page}
+  .bloc-cap{background:#fff; color:#000; border-top:3px solid #000; border-bottom:1px solid #000; padding:10pt 0}
+  .bloc-cap .kicker,.bloc-cap .resum{color:#333}
+  section.apartat{padding:12pt 0; border-bottom:0}
+  .definicio,.propietats,.parany,.bat,details.desplega,.ex,.figura{
+    break-inside:avoid;
+  }
+  .definicio,.propietats,.parany,.bat,details.desplega,.ex{border:1px solid #999; background:#fff}
+  .figura svg{max-width:150mm}
+  .definicio{border-left:3px solid #000}
+  details.desplega .cos{display:block}
+  .ex-sol{display:none!important}
+  .apendix{display:block; break-before:page}
+  .apendix h2{font-size:var(--h3); border-bottom:2px solid #000; padding-bottom:6pt; margin-bottom:12pt}
+  .apendix .sol-item{break-inside:avoid; margin-bottom:9pt; font-size:10pt}
+  .apendix .sol-item b{color:#000}
+  a{color:#000; text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="barra-mobil">
+  <strong>Nombres Reals ℝ</strong>
+  <select id="salt" aria-label="Anar a un bloc"></select>
+</div>
+<div class="embolcall">
+<nav class="nav" aria-label="Índex de la unitat">
+  <div class="marca">Matemàtiques · 4t d'ESO</div>
+  <div class="titol">Nombres Reals ℝ</div>
+  <div class="curs">Unitat 1 · Nombres reals<br>Repàs inicial de 1r de Batxillerat</div>
+  <ol id="index-nav"></ol>
+  <div class="eines">
+    <button type="button" id="btn-solucions">Mostrar totes les solucions</button>
+    <button type="button" id="btn-desplega">Desplegar demostracions</button>
+    <button type="button" id="btn-print">Imprimir versió en paper</button>
+  </div>
+</nav>
+<main>
+<header class="hero">
+  <div class="centre">
+    <h1>Nombres Reals <span class="conj">ℝ</span></h1>
+    <p class="peu">Tot el que es pot mesurar cap en una recta. Aquesta unitat construeix el conjunt ℝ des dels racionals fins als radicals i els logaritmes, i el fa servir per calcular amb precisió i per detectar quan un número ens vol enganyar.</p>
+
+    <div class="encaix" aria-label="Diagrama dels conjunts numèrics inclosos dins dels reals">
+      <svg viewBox="0 0 640 214" role="img">
+        <title>Els conjunts numèrics: ℕ dins ℤ, ℤ dins ℚ, ℚ dins ℝ, i els irracionals com la resta de ℝ</title>
+        <g font-family="IBM Plex Sans, Helvetica, Arial, sans-serif">
+        <rect x="4" y="4" width="632" height="206" rx="10" fill="#e2ecf8" stroke="#12508f" stroke-width="2"/>
+        <text x="612" y="34" text-anchor="end" font-size="21" font-weight="700" fill="#12508f">ℝ</text>
+        <text x="400" y="118" font-size="15" fill="#12508f">Irracionals 𝕀 = ℝ − ℚ</text>
+        <g fill="#2f6aa8" font-size="14">
+          <path d="M400 146 L402.5 150 L406 137 L418 137" fill="none" stroke="#2f6aa8" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <text x="407" y="150" textLength="9" lengthAdjust="spacingAndGlyphs">2</text>
+          <text x="419" y="150">, π, e, φ, log 3</text>
+        </g>
+        <rect x="24" y="24" width="352" height="166" rx="9" fill="#ffffff" stroke="#12508f" stroke-width="1.6"/>
+        <text x="352" y="46" text-anchor="end" font-size="18" font-weight="700" fill="#16233b">ℚ</text>
+        <g fill="#56607a" font-size="13">
+          <text x="150" y="174" textLength="88" lengthAdjust="spacingAndGlyphs">3/4, −0,25, 1,</text>
+          <text x="240" y="174" textLength="8" lengthAdjust="spacingAndGlyphs">6</text>
+          <line x1="239" y1="162" x2="249" y2="162" stroke="#56607a" stroke-width="1.3"/>
+        </g>
+        <rect x="44" y="52" width="256" height="102" rx="8" fill="#eef2f7" stroke="#56607a" stroke-width="1.4"/>
+        <text x="280" y="72" text-anchor="end" font-size="17" font-weight="700" fill="#16233b">ℤ</text>
+        <text x="172" y="142" text-anchor="middle" font-size="13" fill="#56607a">−7, −1</text>
+        <rect x="62" y="78" width="150" height="52" rx="7" fill="#ffffff" stroke="#56607a" stroke-width="1.2"/>
+        <text x="196" y="97" text-anchor="end" font-size="16" font-weight="700" fill="#16233b">ℕ</text>
+        <text x="137" y="115" text-anchor="middle" font-size="13" fill="#56607a">0, 1, 2, 3</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="fitxa">
+      <div>Nivell<span>4t d'ESO</span></div>
+      <div>També serveix per a<span>1r de Batxillerat</span></div>
+      <div>Activitats<span id="compta-ex">—</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= BLOC A ================= -->
+<div class="bloc" id="bloc-A">
+<div class="bloc-cap">
+  <div class="kicker">Bloc A</div>
+  <h2>Nombres reals</h2>
+  <p class="resum">Què hi ha exactament dins de ℝ, com el representem sobre una recta, com l'aproximem quan no en podem escriure totes les xifres i com mesurem el que perdem en fer-ho.</p>
+</div>
+
+<section class="apartat" id="A1">
+<div class="centre">
+<h3><span class="num">A.1</span> Nombres racionals</h3>
+<div class="prosa">
+<div class="curri">
+  <span>Saber: nombres racionals</span><span>CE1 · Sentit numèric</span><span>CE4 · Raonament i prova</span>
+</div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  <p>Un nombre és <strong>racional</strong> si es pot escriure com a quocient de dos nombres enters amb denominador diferent de zero:</p>
+  <p>$$\mathbb{Q}=\left\{\frac{p}{q}\ :\ p\in\mathbb{Z},\ q\in\mathbb{Z},\ q\neq 0\right\}$$</p>
+</div>
+
+<p>L'expressió decimal d'un racional només pot ser de dues menes, i això no és casualitat: en dividir <em>p</em> entre <em>q</em> els residus possibles són <em>0, 1, …, q−1</em>, de manera que després de com a molt <em>q</em> passos o bé el residu és zero o bé se'n repeteix un. Per tant:</p>
+
+<div class="propietats">
+<table>
+<caption>Tipus d'expressió decimal d'un racional</caption>
+<tr><td>Decimal exacte</td><td>Nombre finit de xifres. $\tfrac{3}{8}=0{,}375$</td></tr>
+<tr><td>Decimal periòdic pur</td><td>El període comença just després de la coma. $\tfrac{4}{11}=0{,}\overline{36}$</td></tr>
+<tr><td>Decimal periòdic mixt</td><td>Hi ha avantperíode. $\tfrac{7}{30}=0{,}2\overline{3}$</td></tr>
+</table>
+</div>
+
+<h4>Fracció generatriu</h4>
+<p>Tot decimal exacte o periòdic prové d'una fracció, i la podem recuperar. El mètode ràpid és una regla; convé saber d'on surt.</p>
+
+<details class="desplega">
+<summary>Demostració del mètode: cas de $0{,}2\overline{3}$</summary>
+<div class="cos">
+<p>Anomenem $x=0{,}2333\ldots$ L'estratègia és construir dos nombres amb la mateixa cua decimal i restar-los, perquè la cua infinita desaparegui.</p>
+<p>Multipliquem per $10$ per deixar l'avantperíode a l'esquerra de la coma, i per $100$ per deixar-hi també un període sencer:</p>
+$$10x=2{,}333\ldots \qquad 100x=23{,}333\ldots$$
+<p>Les parts decimals són idèntiques, així que en restar s'anul·len:</p>
+$$100x-10x=23{,}333\ldots-2{,}333\ldots=21 \;\Longrightarrow\; 90x=21 \;\Longrightarrow\; x=\frac{21}{90}=\frac{7}{30}$$
+<p>La regla ràpida («tot el nombre sense comes menys l'avantperíode, dividit per tants nous com xifres té el període seguits de tants zeros com xifres té l'avantperíode») és exactament aquest càlcul: $\dfrac{23-2}{90}$.</p>
+</div>
+</details>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Confondre quantes xifres entren al període.</p>
+<span class="malament">$0{,}1\overline{6}=\dfrac{16}{99}$ — s'ha tractat com si el període fos «16».</span>
+<span class="be">$0{,}1\overline{6}=\dfrac{16-1}{90}=\dfrac{15}{90}=\dfrac{1}{6}$ — el període és només el 6; l'1 és avantperíode.</span>
+</div>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>Els exercicis comencen per classificar, que només demana reconèixer, i acaben demanant la demostració de la fracció generatriu. El salt important és el del pas 2 al 3: passar d'aplicar la regla a justificar-la és el primer moment de la unitat on l'alumnat ha de produir un argument, no un resultat.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="A2">
+<div class="centre">
+<h3><span class="num">A.2</span> Nombres irracionals</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: nombres irracionals</span><span>CE4 · Raonament i prova</span></div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  <p>Un nombre és <strong>irracional</strong> si no es pot escriure com a quocient de dos enters. La seva expressió decimal té infinites xifres i no és periòdica. El conjunt es designa $\mathbb{I}=\mathbb{R}-\mathbb{Q}$.</p>
+</div>
+
+<p>Els irracionals no són casos rars. N'hi ha moltíssims més que de racionals, i n'apareixen de tres famílies habituals: arrels no exactes ($\sqrt{2}$, $\sqrt[3]{7}$), constants geomètriques i analítiques ($\pi$, $e$, $\varphi$) i molts logaritmes ($\log 3$).</p>
+
+<details class="desplega">
+<summary>Demostració: $\sqrt{2}$ no és racional</summary>
+<div class="cos">
+<p>Ho demostrem per reducció a l'absurd. Suposem que sí que ho és. Aleshores existeix una fracció irreductible $\frac{p}{q}$, amb $p$ i $q$ enters sense factors comuns, tal que</p>
+$$\sqrt{2}=\frac{p}{q}\;\Longrightarrow\;2=\frac{p^{2}}{q^{2}}\;\Longrightarrow\;p^{2}=2q^{2}$$
+<p>Com que $p^{2}$ és el doble d'un enter, $p^{2}$ és parell; i si el quadrat d'un enter és parell, l'enter també ho és. Escrivim doncs $p=2k$:</p>
+$$(2k)^{2}=2q^{2}\;\Longrightarrow\;4k^{2}=2q^{2}\;\Longrightarrow\;q^{2}=2k^{2}$$
+<p>Pel mateix argument, $q$ també és parell. Però aleshores $p$ i $q$ són tots dos parells i la fracció no era irreductible, en contra del que havíem suposat. La contradicció obliga a rebutjar la hipòtesi inicial: $\sqrt{2}\notin\mathbb{Q}$.</p>
+</div>
+</details>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Deduir la irracionalitat de la calculadora.</p>
+<span class="malament">«$\sqrt{2}=1{,}41421356$, com que no es repeteix, és irracional.»</span>
+<span class="be">La pantalla només mostra 8 o 10 xifres; amb tan poques no es pot afirmar que no hi hagi període. La irracionalitat es demostra, no s'observa.</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="A3">
+<div class="centre">
+<h3><span class="num">A.3</span> El conjunt ℝ i la recta real</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: nombres reals</span><span>CE1 · Sentit numèric</span></div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  <p>$\mathbb{R}=\mathbb{Q}\cup\mathbb{I}$, amb $\mathbb{Q}\cap\mathbb{I}=\varnothing$. Es compleix la cadena d'inclusions</p>
+  $$\mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R}$$
+</div>
+
+<p>La propietat que fa útil ℝ és que <strong>omple la recta</strong>: a cada punt de la recta li correspon un nombre real i a cada nombre real un punt, sense forats. Amb ℚ això no passa; el punt situat a distància $\sqrt{2}$ de l'origen existeix geomètricament però no té nom racional.</p>
+
+<p>ℝ també és <strong>dens</strong>: entre dos reals qualssevol, per propers que siguin, sempre n'hi ha infinits més. Una manera ràpida de trobar-ne un és fer la mitjana.</p>
+
+<h4>Representar arrels amb regle i compàs</h4>
+<p>$\sqrt{n}$ es construeix aplicant el teorema de Pitàgores. Per a $\sqrt{2}$, la diagonal d'un quadrat de costat 1; per a $\sqrt{5}$, la hipotenusa d'un triangle rectangle de catets 1 i 2, ja que $1^{2}+2^{2}=5$. Encadenant triangles s'obté l'espiral de Teodor i, amb ella, qualsevol $\sqrt{n}$.</p>
+
+<figure class="figura">
+<svg viewBox="0 0 590 248" role="img">
+<title>Construcció de l'arrel de 2 com a diagonal d'un quadrat de costat 1, i de l'arrel de 5 com a hipotenusa d'un triangle rectangle de catets 2 i 1, transportades a la recta real amb el compàs</title>
+<g font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="13">
+
+  <text x="20" y="20" fill="#56607a">Diagonal d'un quadrat de costat 1</text>
+  <line x1="20" y1="200" x2="278" y2="200" stroke="#16233b" stroke-width="1.8"/>
+  <rect x="40" y="110" width="90" height="90" fill="#e2ecf8" stroke="#12508f" stroke-width="1.5"/>
+  <line x1="40" y1="200" x2="130" y2="110" stroke="#12508f" stroke-width="2.4"/>
+  <path d="M130 110 A 127.28 127.28 0 0 1 167.3 200" fill="none" stroke="#12508f" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <g stroke="#16233b" stroke-width="1.5">
+    <line x1="40" y1="195" x2="40" y2="205"/><line x1="130" y1="195" x2="130" y2="205"/><line x1="220" y1="195" x2="220" y2="205"/>
+  </g>
+  <line x1="167.3" y1="193" x2="167.3" y2="207" stroke="#12508f" stroke-width="2.2"/>
+  <circle cx="167.3" cy="200" r="3.6" fill="#12508f"/>
+  <g fill="#56607a" text-anchor="middle">
+    <text x="40" y="222">0</text><text x="130" y="222">1</text><text x="220" y="222">2</text>
+    <text x="85" y="103">1</text><text x="30" y="160">1</text>
+  </g>
+  <g fill="#12508f" font-weight="600">
+    <path d="M96 164 L98.5 168 L102 155 L114 155" fill="none" stroke="#12508f" stroke-width="1.3" stroke-linejoin="round"/>
+    <text x="103" y="168" textLength="9" lengthAdjust="spacingAndGlyphs">2</text>
+    <path d="M160.3 240 L162.8 244 L166.3 231 L178.3 231" fill="none" stroke="#12508f" stroke-width="1.3" stroke-linejoin="round"/>
+    <text x="167.3" y="244" textLength="9" lengthAdjust="spacingAndGlyphs">2</text>
+  </g>
+
+  <text x="310" y="20" fill="#56607a">Hipotenusa de catets 2 i 1</text>
+  <line x1="310" y1="200" x2="572" y2="200" stroke="#16233b" stroke-width="1.8"/>
+  <path d="M330 200 L470 200 L470 130 Z" fill="#fae8f1" stroke="#97245f" stroke-width="1.5"/>
+  <line x1="330" y1="200" x2="470" y2="130" stroke="#97245f" stroke-width="2.4"/>
+  <path d="M470 130 A 156.52 156.52 0 0 1 486.5 200" fill="none" stroke="#97245f" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <g stroke="#16233b" stroke-width="1.5">
+    <line x1="330" y1="195" x2="330" y2="205"/><line x1="400" y1="195" x2="400" y2="205"/>
+    <line x1="470" y1="195" x2="470" y2="205"/><line x1="540" y1="195" x2="540" y2="205"/>
+  </g>
+  <line x1="486.5" y1="193" x2="486.5" y2="207" stroke="#97245f" stroke-width="2.2"/>
+  <circle cx="486.5" cy="200" r="3.6" fill="#97245f"/>
+  <g fill="#56607a" text-anchor="middle">
+    <text x="330" y="222">0</text><text x="400" y="222">1</text><text x="470" y="222">2</text><text x="540" y="222">3</text>
+    <text x="392" y="194">2</text><text x="463" y="170" text-anchor="end">1</text>
+  </g>
+  <g fill="#97245f" font-weight="600">
+    <path d="M372 146 L374.5 150 L378 137 L390 137" fill="none" stroke="#97245f" stroke-width="1.3" stroke-linejoin="round"/>
+    <text x="379" y="150" textLength="9" lengthAdjust="spacingAndGlyphs">5</text>
+    <path d="M479.5 240 L482 244 L485.5 231 L497.5 231" fill="none" stroke="#97245f" stroke-width="1.3" stroke-linejoin="round"/>
+    <text x="486.5" y="244" textLength="9" lengthAdjust="spacingAndGlyphs">5</text>
+  </g>
+</g>
+</svg>
+<figcaption>El compàs transporta la longitud de la hipotenusa sobre la recta. El punt obtingut existeix geomètricament però no és cap fracció: aquesta és la diferència entre ℚ i ℝ vista amb regle i compàs.</figcaption>
+</figure>
+
+<div class="bat">
+<div class="etq">Ampliació · Batxillerat</div>
+<p>A 1r de Batxillerat aquesta idea es formalitza amb l'<strong>axioma del suprem</strong>: tot subconjunt de ℝ no buit i fitat superiorment té un extrem superior dins de ℝ. És precisament la propietat que ℚ no compleix, i la que garanteix que la recta no tingui forats.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="A4">
+<div class="centre">
+<h3><span class="num">A.4</span> Aproximació de nombres reals</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: aproximació de nombres reals</span><span>CE2 · Modelització</span></div>
+
+<p>Quan un nombre té infinites xifres, o quan prové d'una mesura, treballem amb un valor aproximat. Hi ha dues maneres de retallar-lo i no donen el mateix resultat.</p>
+
+<div class="propietats">
+<table>
+<caption>Truncament i arrodoniment a les centèsimes</caption>
+<tr><td><strong>Truncament</strong>: s'eliminen les xifres sobrants</td><td>$\pi=3{,}14159\ldots\rightarrow 3{,}14$</td></tr>
+<tr><td><strong>Arrodoniment</strong>: si la primera xifra eliminada és $\geq 5$, s'augmenta en una unitat l'última que es conserva</td><td>$e=2{,}71828\ldots\rightarrow 2{,}72$</td></tr>
+</table>
+</div>
+
+<div class="definicio">
+  <div class="etq">Xifres significatives</div>
+  <p>Són les xifres d'una aproximació que aporten informació sobre la mesura. Es compten des de la primera xifra no nul·la per l'esquerra. Els zeros a l'esquerra mai no són significatius; els zeros finals a la dreta de la coma sí que ho són.</p>
+  <p>$0{,}00470$ té <strong>tres</strong> xifres significatives: 4, 7 i 0.</p>
+</div>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Arrodonir en cadena, xifra a xifra.</p>
+<span class="malament">$3{,}2489\rightarrow 3{,}249\rightarrow 3{,}25\rightarrow 3{,}3$</span>
+<span class="be">$3{,}2489\rightarrow 3{,}2$ a les dècimes. S'arrodoneix una sola vegada, mirant la xifra que segueix la posició demanada al nombre original.</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="A5">
+<div class="centre">
+<h3><span class="num">A.5</span> Errors d'aproximació</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: errors d'aproximació</span><span>CE2 · Modelització</span><span>CE6 · Pensament crític</span></div>
+
+<div class="definicio">
+  <div class="etq">Definicions</div>
+  <p>Si $x$ és el valor exacte i $\tilde{x}$ l'aproximat:</p>
+  $$E_{a}=\lvert x-\tilde{x}\rvert \qquad\qquad E_{r}=\frac{E_{a}}{\lvert x\rvert}$$
+  <p>L'error absolut té les mateixes unitats que la magnitud. L'error relatiu no té unitats i sovint s'expressa en percentatge.</p>
+</div>
+
+<p>L'error relatiu és el que permet comparar aproximacions de magnituds diferents. Equivocar-se en 1 cm mesurant un llapis és greu; equivocar-se en 1 cm mesurant un carrer, no.</p>
+
+<div class="definicio">
+  <div class="etq">Fita de l'error</div>
+  <p>Quan no coneixem el valor exacte no podem calcular $E_a$, però sí acotar-lo. Si arrodonim a una determinada posició decimal, l'error absolut és com a molt <strong>mitja unitat</strong> d'aquesta posició. En arrodonir a les centèsimes, $E_{a}\leq 0{,}005$.</p>
+</div>
+
+<div class="bat">
+<div class="etq">Ampliació · Batxillerat</div>
+<p>En operar amb valors aproximats, els errors es propaguen. En una suma o resta s'acumulen els errors absoluts; en un producte o quocient, els relatius. És l'origen del criteri de xifres significatives que es fa servir a Física i Química.</p>
+</div>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>Els exercicis d'error passen de calcular $E_a$ i $E_r$ amb el valor exacte conegut (N1–N2) a acotar-los sense conèixer-lo (N3). És un canvi de naturalesa, no de dificultat aritmètica: es passa de mesurar l'error a garantir-lo, que és el que realment es fa en un laboratori o en un procés industrial.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="A6">
+<div class="centre">
+<h3><span class="num">A.6</span> Intervals, semirectes i entorns</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: intervals</span><span>CE1 · Sentit numèric</span><span>CE3 · Resolució de problemes</span></div>
+
+<div class="propietats">
+<table>
+<caption>Notacions equivalents</caption>
+<tr><td>$(a,b)=\{x\in\mathbb{R}: a&lt;x&lt;b\}$</td><td>Interval obert. Els extrems no hi pertanyen</td></tr>
+<tr><td>$[a,b]=\{x\in\mathbb{R}: a\leq x\leq b\}$</td><td>Interval tancat</td></tr>
+<tr><td>$[a,b)$ i $(a,b]$</td><td>Semioberts</td></tr>
+<tr><td>$(-\infty,b]=\{x\in\mathbb{R}: x\leq b\}$</td><td>Semirecta. L'infinit sempre va amb parèntesi</td></tr>
+<tr><td>$E(a,r)=(a-r,a+r)=\{x: \lvert x-a\rvert&lt;r\}$</td><td>Entorn de centre $a$ i radi $r$</td></tr>
+</table>
+</div>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Tancar l'infinit.</p>
+<span class="malament">$[-\infty,3]$</span>
+<span class="be">$(-\infty,3]$. L'infinit no és cap nombre real, per tant no pot pertànyer a l'interval i mai no porta claudàtor.</span>
+</div>
+
+<div class="eina-recta" id="eina-recta">
+  <h4>Recta real interactiva</h4>
+  <p class="intro">Defineix dos intervals i mira com queden la unió i la intersecció sobre la recta.</p>
+  <div class="rc-controls">
+    <div class="rc-grup"><b>A</b>
+      <select id="ra-e" aria-label="Extrem esquerre de A"><option value="(">(</option><option value="[" selected>[</option></select>
+      <input id="ra-a" type="number" value="-3" step="0.5" aria-label="Valor esquerre de A">
+      <span>,</span>
+      <input id="ra-b" type="number" value="2" step="0.5" aria-label="Valor dret de A">
+      <select id="ra-d" aria-label="Extrem dret de A"><option value=")">)</option><option value="]" selected>]</option></select>
+    </div>
+    <div class="rc-grup"><b>B</b>
+      <select id="rb-e" aria-label="Extrem esquerre de B"><option value="(" selected>(</option><option value="[">[</option></select>
+      <input id="rb-a" type="number" value="0" step="0.5" aria-label="Valor esquerre de B">
+      <span>,</span>
+      <input id="rb-b" type="number" value="5" step="0.5" aria-label="Valor dret de B">
+      <select id="rb-d" aria-label="Extrem dret de B"><option value=")" selected>)</option><option value="]">]</option></select>
+    </div>
+  </div>
+  <div class="rc-svg"><svg id="rc-dibuix" viewBox="0 0 760 250" role="img" aria-label="Representació gràfica dels intervals A, B, A unió B i A intersecció B"></svg></div>
+  <div class="rc-result">
+    <div><span>A ∪ B</span><strong id="rc-union">—</strong></div>
+    <div><span>A ∩ B</span><strong id="rc-inter">—</strong></div>
+  </div>
+</div>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>Els intervals són el primer contingut de la unitat on la representació gràfica no és un adorn sinó l'eina de càlcul: la intersecció es <em>veu</em> abans de saber-la escriure. Per això la recta interactiva precedeix els exercicis i no els segueix.</p>
+</div>
+</div>
+
+<div style="max-width:none">
+<h4 style="margin-top:34px">Activitats del bloc A</h4>
+<div class="ex-cap"><div class="filtres" data-bloc="A"></div></div>
+<div id="ex-A"></div>
+</div>
+</div>
+</section>
+</div>
+<!-- ================= BLOC B ================= -->
+<div class="bloc" id="bloc-B">
+<div class="bloc-cap">
+  <div class="kicker">Bloc B</div>
+  <h2>Proporcionalitat i percentatges</h2>
+  <p class="resum">La part de la unitat amb més presència fora de l'aula: preus, descomptes, comissions i interessos. També la part on més fàcilment ens enganyen amb números correctes mal interpretats.</p>
+</div>
+
+<section class="apartat" id="B1">
+<div class="centre">
+<h3><span class="num">B.1</span> Proporcionalitat directa i inversa</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: proporcionalitat directa i inversa</span><span>CE2 · Modelització</span><span>CE3 · Resolució de problemes</span></div>
+
+<div class="definicio">
+  <div class="etq">Definicions</div>
+  <p>Dues magnituds són <strong>directament proporcionals</strong> si el seu quocient és constant:</p>
+  $$\frac{y}{x}=k \quad\Longleftrightarrow\quad y=kx$$
+  <p>Són <strong>inversament proporcionals</strong> si el seu producte és constant:</p>
+  $$x\cdot y=k \quad\Longleftrightarrow\quad y=\frac{k}{x}$$
+</div>
+
+<p>La constant $k$ té sempre un significat concret al problema: preu unitari, velocitat, rendiment. Identificar-lo és més útil que memoritzar la regla de tres, perquè permet respondre qualsevol pregunta del context, no només la que es demana.</p>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Suposar proporcionalitat directa quan no n'hi ha.</p>
+<span class="malament">«Si 1 obrer tarda 12 dies, 2 obrers en tardaran 24.»</span>
+<span class="be">Més obrers, menys dies: la relació és inversa. $1\cdot 12=2\cdot t \Rightarrow t=6$ dies. Abans d'operar cal decidir si en augmentar una magnitud l'altra creix o decreix.</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="B2">
+<div class="centre">
+<h3><span class="num">B.2</span> Percentatges, variacions i interès</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: percentatges</span><span>CE2 · Modelització</span><span>CE6 · Pensament crític</span></div>
+
+<div class="definicio">
+  <div class="etq">Índex de variació</div>
+  <p>Un augment del $r\,\%$ multiplica per $1+\frac{r}{100}$; una disminució del $r\,\%$ multiplica per $1-\frac{r}{100}$. Aquest factor s'anomena <strong>índex de variació</strong>.</p>
+  <p>Augment del 20 % → índex $1{,}20$. Rebaixa del 35 % → índex $0{,}65$.</p>
+</div>
+
+<p>Treballar amb índexs en comptes de sumar i restar percentatges és el que fa manejables les variacions encadenades: n'hi ha prou de multiplicar-los.</p>
+
+<div class="definicio">
+  <div class="etq">Variacions encadenades i interès compost</div>
+  $$C_{\text{final}}=C_{\text{inicial}}\cdot i_{1}\cdot i_{2}\cdots i_{n} \qquad\qquad C_{f}=C_{0}\left(1+\frac{r}{100}\right)^{t}$$
+</div>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Sumar percentatges encadenats.</p>
+<span class="malament">Pujar un 20 % i després rebaixar un 20 % deixa el preu igual.</span>
+<span class="be">$1{,}20\cdot 0{,}80=0{,}96$. El preu final és el 96 % de l'inicial: s'ha perdut un 4 %. Els percentatges successius es multipliquen perquè cadascun s'aplica sobre una base diferent.</span>
+</div>
+
+<details class="desplega">
+<summary>Per què no es poden sumar: la base canvia</summary>
+<div class="cos">
+<p>Sigui $C$ el preu inicial. Després de l'augment del 20 % el preu és $1{,}2C$. La rebaixa del 20 % no s'aplica sobre $C$ sinó sobre $1{,}2C$, que és més gran, de manera que el descompte en euros és més gran que l'augment que s'havia fet:</p>
+$$\text{augment}=0{,}2C \qquad \text{rebaixa}=0{,}2\cdot 1{,}2C=0{,}24C$$
+<p>Es rebaixa $0{,}24C$ i només s'havia pujat $0{,}2C$; d'aquí la pèrdua neta de $0{,}04C$, és a dir, el 4 %.</p>
+</div>
+</details>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>Els exercicis d'aquest bloc són majoritàriament competencials perquè el contingut matemàtic és senzill i la dificultat real és de lectura de l'enunciat. Insistir en càlculs N1 aquí no aporta res; en canvi, demanar que decideixin sobre quina base s'aplica cada percentatge sí que discrimina la comprensió.</p>
+</div>
+</div>
+
+<div style="max-width:none">
+<h4 style="margin-top:34px">Activitats del bloc B</h4>
+<div class="ex-cap"><div class="filtres" data-bloc="B"></div></div>
+<div id="ex-B"></div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ================= BLOC C ================= -->
+<div class="bloc" id="bloc-C">
+<div class="bloc-cap">
+  <div class="kicker">Bloc C</div>
+  <h2>Potències i notació científica</h2>
+  <p class="resum">Les set propietats de les potències, esteses als exponents negatius, i l'escriptura que fa manejables els nombres molt grans i molt petits.</p>
+</div>
+
+<section class="apartat" id="C1">
+<div class="centre">
+<h3><span class="num">C.1</span> Potències d'exponent enter</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: potències d'exponent enter</span><span>CE1 · Sentit numèric</span></div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  <p>Per a $a\neq 0$ i $n\in\mathbb{N}$:</p>
+  $$a^{0}=1 \qquad a^{-n}=\frac{1}{a^{n}} \qquad \left(\frac{a}{b}\right)^{-n}=\left(\frac{b}{a}\right)^{n}$$
+  <p>La definició d'exponent negatiu no és arbitrària: és l'única que manté vàlida la propietat $a^{m}:a^{n}=a^{m-n}$ quan $m&lt;n$.</p>
+</div>
+
+<div class="propietats">
+<table>
+<caption>Propietats · vàlides per a exponents enters qualssevol</caption>
+<tr><td>$a^{m}\cdot a^{n}=a^{m+n}$</td><td>Mateixa base, producte</td></tr>
+<tr><td>$a^{m}:a^{n}=a^{m-n}$</td><td>Mateixa base, quocient</td></tr>
+<tr><td>$(a^{m})^{n}=a^{m\cdot n}$</td><td>Potència d'una potència</td></tr>
+<tr><td>$(a\cdot b)^{n}=a^{n}b^{n}$</td><td>Mateix exponent, producte</td></tr>
+<tr><td>$\left(\dfrac{a}{b}\right)^{n}=\dfrac{a^{n}}{b^{n}}$</td><td>Mateix exponent, quocient</td></tr>
+</table>
+</div>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>El signe menys i el parèntesi no són intercanviables.</p>
+<span class="malament">$(-2)^{4}=-2^{4}$</span>
+<span class="be">$(-2)^{4}=16$ però $-2^{4}=-16$. Sense parèntesi, la potència afecta només el 2 i el signe queda fora. Amb exponent senar coincideixen, i per això l'error passa desapercebut fins que apareix un exponent parell.</span>
+</div>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Distribuir l'exponent sobre una suma.</p>
+<span class="malament">$(a+b)^{2}=a^{2}+b^{2}$</span>
+<span class="be">$(a+b)^{2}=a^{2}+2ab+b^{2}$. Les propietats de les potències parlen de productes i quocients; cap d'elles parla de sumes.</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="C2">
+<div class="centre">
+<h3><span class="num">C.2</span> Notació científica</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: notació científica</span><span>CE2 · Modelització</span><span>CE6 · Pensament crític</span></div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  <p>Un nombre està en notació científica si s'escriu $a\cdot 10^{n}$ amb $1\leq \lvert a\rvert &lt;10$ i $n\in\mathbb{Z}$. La xifra $n$ marca l'<strong>ordre de magnitud</strong>.</p>
+</div>
+
+<div class="propietats">
+<table>
+<caption>Operacions</caption>
+<tr><td>Producte: $(a\cdot 10^{m})(b\cdot 10^{n})=ab\cdot 10^{m+n}$</td><td>Cal reajustar si $ab\geq 10$</td></tr>
+<tr><td>Quocient: $(a\cdot 10^{m}):(b\cdot 10^{n})=\tfrac{a}{b}\cdot 10^{m-n}$</td><td>Cal reajustar si $\tfrac{a}{b}&lt;1$</td></tr>
+<tr><td>Suma i resta</td><td>Primer s'igualen els exponents, després se sumen les mantisses</td></tr>
+</table>
+</div>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Sumar mantisses amb exponents diferents.</p>
+<span class="malament">$3\cdot 10^{5}+2\cdot 10^{3}=5\cdot 10^{8}$</span>
+<span class="be">$3\cdot 10^{5}+0{,}02\cdot 10^{5}=3{,}02\cdot 10^{5}$. Només es poden sumar quantitats expressades en la mateixa unitat, i aquí la «unitat» és la potència de 10.</span>
+</div>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>La notació científica es treballa immediatament després de les potències d'exponent enter i abans dels radicals, perquè és l'única aplicació on l'exponent negatiu té un significat físic immediat i no només algebraic. Els problemes competencials del bloc són d'astronomia i biologia per aquest motiu.</p>
+</div>
+</div>
+
+<div style="max-width:none">
+<h4 style="margin-top:34px">Activitats del bloc C</h4>
+<div class="ex-cap"><div class="filtres" data-bloc="C"></div></div>
+<div id="ex-C"></div>
+</div>
+</div>
+</section>
+</div>
+<!-- ================= BLOC D ================= -->
+<div class="bloc" id="bloc-D">
+<div class="bloc-cap">
+  <div class="kicker">Bloc D</div>
+  <h2>Radicals</h2>
+  <p class="resum">El bloc més llarg i el que més arrossega cap a Batxillerat. Tota la seva dificultat es dissol quan s'accepta una sola idea: un radical és una potència d'exponent fraccionari.</p>
+</div>
+
+<section class="apartat" id="D1">
+<div class="centre">
+<h3><span class="num">D.1</span> Arrel n-èsima i exponent fraccionari</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: radicals</span><span>Saber: potències d'exponent fraccionari</span><span>CE1 · Sentit numèric</span></div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  $$\sqrt[n]{a}=b \quad\Longleftrightarrow\quad b^{n}=a \qquad (n\in\mathbb{N},\ n\geq 2)$$
+  <p>Existència: si $n$ és senar, $\sqrt[n]{a}$ existeix a ℝ per a qualsevol $a$. Si $n$ és parell, només existeix per a $a\geq 0$, i el resultat es pren positiu.</p>
+</div>
+
+<div class="definicio">
+  <div class="etq">Equivalència fonamental</div>
+  $$\sqrt[n]{a^{m}}=a^{\frac{m}{n}} \qquad (a&gt;0)$$
+  <p>Aquesta igualtat és el pont del bloc. Tota propietat dels radicals és una propietat de les potències escrita d'una altra manera, i sempre que un càlcul amb arrels es complica, val la pena passar-lo a exponents fraccionaris.</p>
+</div>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Oblidar el valor absolut amb índex parell.</p>
+<span class="malament">$\sqrt{x^{2}}=x$</span>
+<span class="be">$\sqrt{x^{2}}=\lvert x\rvert$. Si $x=-3$, l'arrel val 3, no −3. Amb índex senar sí que es compleix $\sqrt[3]{x^{3}}=x$ per a qualsevol $x$.</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="D2">
+<div class="centre">
+<h3><span class="num">D.2</span> Operacions amb radicals</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: operacions amb radicals</span><span>CE1 · Sentit numèric</span><span>CE4 · Raonament i prova</span></div>
+
+<div class="propietats">
+<table>
+<caption>Propietats · amb $a,b&gt;0$</caption>
+<tr><td>$\sqrt[n]{a^{m}}=\sqrt[n\cdot p]{a^{m\cdot p}}$</td><td>Radicals equivalents. Permet simplificar l'índex i reduir a índex comú</td></tr>
+<tr><td>$\sqrt[n]{a}\cdot\sqrt[n]{b}=\sqrt[n]{ab}$</td><td>Producte, només amb el mateix índex</td></tr>
+<tr><td>$\dfrac{\sqrt[n]{a}}{\sqrt[n]{b}}=\sqrt[n]{\dfrac{a}{b}}$</td><td>Quocient, només amb el mateix índex</td></tr>
+<tr><td>$\left(\sqrt[n]{a}\right)^{m}=\sqrt[n]{a^{m}}$</td><td>Potència d'un radical</td></tr>
+<tr><td>$\sqrt[m]{\sqrt[n]{a}}=\sqrt[m\cdot n]{a}$</td><td>Arrel d'una arrel: els índexs es multipliquen</td></tr>
+</table>
+</div>
+
+<h4>Extracció de factors</h4>
+<p>Es descompon el radicand en factors primers i se'n treu tot bloc l'exponent del qual arribi a l'índex:</p>
+$$\sqrt{288}=\sqrt{2^{5}\cdot 3^{2}}=\sqrt{2^{4}\cdot 3^{2}\cdot 2}=2^{2}\cdot 3\sqrt{2}=12\sqrt{2}$$
+
+<h4>Suma i resta</h4>
+<p>Només se sumen <strong>radicals semblants</strong>, és a dir, amb el mateix índex i el mateix radicand. Sovint semblants no ho són fins que s'han extret factors:</p>
+$$\sqrt{50}-\sqrt{18}+\sqrt{8}=5\sqrt{2}-3\sqrt{2}+2\sqrt{2}=4\sqrt{2}$$
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Repartir l'arrel sobre una suma.</p>
+<span class="malament">$\sqrt{a+b}=\sqrt{a}+\sqrt{b}$</span>
+<span class="be">$\sqrt{9+16}=\sqrt{25}=5$, mentre que $\sqrt{9}+\sqrt{16}=3+4=7$. L'arrel es reparteix sobre productes i quocients, mai sobre sumes.</span>
+</div>
+
+<details class="desplega">
+<summary>D'on surt la regla dels radicals equivalents</summary>
+<div class="cos">
+<p>Escrivim el radical com a potència i amplifiquem la fracció de l'exponent, cosa que no altera el seu valor:</p>
+$$\sqrt[n]{a^{m}}=a^{\frac{m}{n}}=a^{\frac{m\cdot p}{n\cdot p}}=\sqrt[n\cdot p]{a^{m\cdot p}}$$
+<p>És a dir, multiplicar índex i exponent pel mateix nombre és exactament amplificar una fracció. Simplificar un radical és simplificar-la. Aquesta lectura estalvia memoritzar la regla i explica per què cal el mateix índex per multiplicar: només es poden sumar exponents amb el mateix denominador després de reduir-los a comú denominador.</p>
+</div>
+</details>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="D3">
+<div class="centre">
+<h3><span class="num">D.3</span> Racionalització</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: racionalització</span><span>CE1 · Sentit numèric</span></div>
+
+<p>Racionalitzar és transformar una fracció perquè el denominador no contingui radicals, multiplicant numerador i denominador per una mateixa expressió. Hi ha tres casos.</p>
+
+<div class="propietats">
+<table>
+<caption>Els tres casos</caption>
+<tr><td>Denominador $\sqrt{a}$ → multiplicar per $\sqrt{a}$</td><td>$\dfrac{3}{\sqrt{5}}=\dfrac{3\sqrt{5}}{5}$</td></tr>
+<tr><td>Denominador $\sqrt[n]{a^{m}}$ → multiplicar per $\sqrt[n]{a^{\,n-m}}$</td><td>$\dfrac{1}{\sqrt[3]{2}}=\dfrac{\sqrt[3]{2^{2}}}{2}=\dfrac{\sqrt[3]{4}}{2}$</td></tr>
+<tr><td>Denominador $\sqrt{a}\pm\sqrt{b}$ → multiplicar pel conjugat $\sqrt{a}\mp\sqrt{b}$</td><td>$\dfrac{2}{\sqrt{5}-\sqrt{3}}=\dfrac{2(\sqrt{5}+\sqrt{3})}{2}=\sqrt{5}+\sqrt{3}$</td></tr>
+</table>
+</div>
+
+<p>El tercer cas funciona gràcies a la identitat $(x+y)(x-y)=x^{2}-y^{2}$: en elevar al quadrat, els radicals desapareixen.</p>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Multiplicar només el denominador.</p>
+<span class="malament">$\dfrac{3}{\sqrt{5}}=\dfrac{3}{5}$</span>
+<span class="be">$\dfrac{3}{\sqrt{5}}=\dfrac{3\sqrt{5}}{5}$. Multiplicar dalt i baix pel mateix factor és multiplicar per 1; fer-ho només a baix canvia el nombre.</span>
+</div>
+
+<div class="bat">
+<div class="etq">Ampliació · Batxillerat</div>
+<p>La multiplicació pel conjugat reapareix a 1r de Batxillerat per resoldre límits indeterminats del tipus $\infty-\infty$ amb arrels, com $\lim_{x\to\infty}\left(\sqrt{x^{2}+x}-x\right)$. Els exercicis marcats N3 d'aquest bloc són precisament els que hi preparen.</p>
+</div>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>Els exercicis van d'un sol radical (N1), a expressions on cal extreure factors abans de veure que són semblants (N2), a expressions amb literals i índexs diferents (N3). El salt cognitiu real és el segon: reconèixer que dues coses aparentment diferents són la mateixa. Els N3 amb paràmetres literals són els que separen 4t d'ESO de Batxillerat, perquè hi desapareix la comprovació numèrica.</p>
+</div>
+</div>
+
+<div style="max-width:none">
+<h4 style="margin-top:34px">Activitats del bloc D</h4>
+<div class="ex-cap"><div class="filtres" data-bloc="D"></div></div>
+<div id="ex-D"></div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ================= BLOC E ================= -->
+<div class="bloc" id="bloc-E">
+<div class="bloc-cap">
+  <div class="kicker">Bloc E</div>
+  <h2>Logaritmes</h2>
+  <p class="resum">L'operació que desfà una potència quan la incògnita és l'exponent. Tanca la unitat perquè les seves propietats són, una a una, la lectura inversa de les propietats de les potències.</p>
+</div>
+
+<section class="apartat" id="E1">
+<div class="centre">
+<h3><span class="num">E.1</span> Definició i propietats</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: logaritmes</span><span>Saber: propietats dels logaritmes</span><span>CE1 · Sentit numèric</span><span>CE4 · Raonament i prova</span></div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  $$\log_{a}b=c \quad\Longleftrightarrow\quad a^{c}=b \qquad\text{amb } a&gt;0,\ a\neq 1,\ b&gt;0$$
+  <p>El logaritme és l'exponent al qual cal elevar la base per obtenir el nombre. $\log_{2}32=5$ perquè $2^{5}=32$.</p>
+  <p>Notació: $\log b$ vol dir $\log_{10}b$; $\ln b$ vol dir $\log_{e}b$.</p>
+</div>
+
+<div class="propietats">
+<table>
+<caption>Propietats · i la propietat de les potències que hi ha al darrere</caption>
+<tr><td>$\log_{a}1=0$</td><td>Perquè $a^{0}=1$</td></tr>
+<tr><td>$\log_{a}a=1$</td><td>Perquè $a^{1}=a$</td></tr>
+<tr><td>$\log_{a}(x\cdot y)=\log_{a}x+\log_{a}y$</td><td>Perquè $a^{m}a^{n}=a^{m+n}$</td></tr>
+<tr><td>$\log_{a}\dfrac{x}{y}=\log_{a}x-\log_{a}y$</td><td>Perquè $a^{m}:a^{n}=a^{m-n}$</td></tr>
+<tr><td>$\log_{a}x^{n}=n\log_{a}x$</td><td>Perquè $(a^{m})^{n}=a^{mn}$</td></tr>
+<tr><td>$\log_{a}\sqrt[n]{x}=\dfrac{1}{n}\log_{a}x$</td><td>Cas particular de l'anterior amb $n$ fraccionari</td></tr>
+</table>
+</div>
+
+<details class="desplega">
+<summary>Demostració de $\log_{a}(xy)=\log_{a}x+\log_{a}y$</summary>
+<div class="cos">
+<p>Anomenem $m=\log_{a}x$ i $n=\log_{a}y$. Per definició de logaritme això vol dir</p>
+$$a^{m}=x \qquad a^{n}=y$$
+<p>Multiplicant les dues igualtats i aplicant la propietat del producte de potències de la mateixa base:</p>
+$$x\cdot y=a^{m}\cdot a^{n}=a^{m+n}$$
+<p>Tornant a llegir això com un logaritme: l'exponent al qual cal elevar $a$ per obtenir $xy$ és $m+n$. És a dir,</p>
+$$\log_{a}(xy)=m+n=\log_{a}x+\log_{a}y \qquad\blacksquare$$
+</div>
+</details>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Repartir el logaritme sobre una suma.</p>
+<span class="malament">$\log(x+y)=\log x+\log y$</span>
+<span class="be">El logaritme d'un producte és la suma de logaritmes, no a l'inrevés. $\log(2+3)=\log 5\approx 0{,}70$, mentre que $\log 2+\log 3=\log 6\approx 0{,}78$.</span>
+</div>
+
+<div class="definicio">
+  <div class="etq">Canvi de base</div>
+  $$\log_{a}b=\frac{\log_{c}b}{\log_{c}a}$$
+  <p>És el que permet calcular amb la calculadora qualsevol logaritme a partir de $\log$ o $\ln$: $\log_{2}7=\dfrac{\log 7}{\log 2}\approx 2{,}807$.</p>
+</div>
+
+<div class="bat">
+<div class="etq">Ampliació · Batxillerat</div>
+<p>A 1r de Batxillerat els logaritmes deixen de ser un càlcul i esdevenen una funció: $y=\log_{a}x$, inversa de l'exponencial, amb domini $(0,+\infty)$. També són l'eina per resoldre equacions exponencials i per llegir escales logarítmiques (pH, decibels, magnitud sísmica).</p>
+</div>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>Els primers exercicis demanen logaritmes immediats sense calculadora, perquè el concepte s'instal·la resolent mentalment $2^{?}=32$. Només després apareixen les propietats i el canvi de base. Fer-ho a l'inrevés produeix alumnat que aplica correctament les fórmules sense saber què és un logaritme.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="apartat" id="E2">
+<div class="centre">
+<h3><span class="num">E.2</span> Equacions logarítmiques</h3>
+<div class="prosa">
+<div class="curri"><span>Saber: logaritmes</span><span>CE3 · Resolució de problemes</span><span>CE4 · Raonament i prova</span></div>
+
+<div class="definicio">
+  <div class="etq">Definició</div>
+  <p>Una <strong>equació logarítmica</strong> és una equació en què la incògnita apareix dins de l'argument d'almenys un logaritme.</p>
+</div>
+
+<p>El procediment sempre és el mateix: agrupar tots els logaritmes en un de sol, deixar l'equació en una de les dues formes de sota, i llavors fer desaparèixer el logaritme.</p>
+
+<div class="propietats">
+<table>
+<caption>Les dues formes a què cal arribar</caption>
+<tr><td>$\log_{a}A=\log_{a}B \;\Longrightarrow\; A=B$</td><td>Si els dos membres són logaritmes de la mateixa base, els arguments són iguals</td></tr>
+<tr><td>$\log_{a}A=k \;\Longrightarrow\; A=a^{k}$</td><td>Si un membre és un nombre, s'aplica la definició de logaritme</td></tr>
+</table>
+</div>
+
+<h4>El pas que no es pot saltar: comprovar el domini</h4>
+<p>Agrupar logaritmes amb les propietats pot <strong>ampliar el domini</strong> de l'equació, i això fa aparèixer solucions que no ho són. Per aquest motiu tota solució s'ha de substituir a l'equació original, no a la transformada.</p>
+
+<details class="desplega">
+<summary>Un exemple complet: $\log x+\log(x-3)=1$</summary>
+<div class="cos">
+<p>A l'equació original cal que $x&gt;0$ i que $x-3&gt;0$, és a dir $x&gt;3$. Agrupem:</p>
+$$\log\big(x(x-3)\big)=1 \;\Longrightarrow\; x^{2}-3x=10 \;\Longrightarrow\; x^{2}-3x-10=0$$
+<p>Les arrels són $x=5$ i $x=-2$.</p>
+<p>La segona no serveix: $\log(-2)$ no existeix. Ha aparegut perquè $\log\big(x(x-3)\big)$ sí que està definit per a $x=-2$ — el producte de dos negatius és positiu — mentre que els dos logaritmes de partida no ho estan. La solució és $x=5$: $\log 5+\log 2=\log 10=1$ ✓</p>
+</div>
+</details>
+
+<div class="parany">
+<div class="etq">Error freqüent</div>
+<p>Descartar automàticament les solucions negatives.</p>
+<span class="malament">«Surt $x=-1$, per tant no val: els logaritmes de negatius no existeixen.»</span>
+<span class="be">El que ha de ser positiu és l'<strong>argument</strong>, no la incògnita. A $\log x^{2}-\log(x+1{,}1)=1$, el valor $x=-1$ dona arguments $1$ i $0{,}1$, tots dos positius, i és solució vàlida. Cal comprovar, no suposar.</span>
+</div>
+
+<div class="bat">
+<div class="etq">Ampliació · Batxillerat</div>
+<p>A 1r de Batxillerat aquesta tècnica s'estén als sistemes d'equacions logarítmiques i exponencials, i la comprovació del domini es reformula com l'estudi del domini de la funció $y=\log_{a}f(x)$, que exigeix $f(x)&gt;0$.</p>
+</div>
+
+<div class="nota-peda">
+<div class="etq">Per què aquesta seqüència</div>
+<p>Les equacions van de les que es resolen amb una sola propietat (E·20) a les que requereixen resoldre una equació de segon grau i després decidir quines arrels sobreviuen (E·22, E·23). El salt cognitiu no és algebraic sinó lògic: entendre que una transformació correcta pot no ser reversible. És el mateix fenomen que ja han vist en elevar al quadrat els dos membres d'una equació amb radicals.</p>
+</div>
+</div>
+
+<div style="max-width:none">
+<h4 style="margin-top:34px">Activitats del bloc E</h4>
+<div class="ex-cap"><div class="filtres" data-bloc="E"></div></div>
+<div id="ex-E"></div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ================= GLOBALS ================= -->
+<div class="bloc" id="bloc-G">
+<div class="bloc-cap">
+  <div class="kicker">Síntesi</div>
+  <h2>Activitats globalitzadores i competencials</h2>
+  <p class="resum">Exercicis que barregen fraccions, potències, arrels, notació científica i logaritmes en un mateix enunciat, i problemes on el número surt d'un context real i cal decidir si se'l pot creure.</p>
+</div>
+
+<section class="apartat" id="G1">
+<div class="centre">
+<div class="prosa">
+<p>En aquestes activitats ja no s'indica quina propietat s'ha d'aplicar. Aquesta és tota la dificultat afegida: cal jerarquitzar les operacions, decidir si convé passar a exponents fraccionaris i comprovar al final si el resultat es pot simplificar o racionalitzar més.</p>
+<div class="bat">
+<div class="etq">Recomanació d'ús</div>
+<p>Els codis <strong>G</strong> funcionen bé com a prova d'avaluació i com a repàs de setembre a 1r de Batxillerat. Els codis <strong>C</strong> estan pensats per treballar-los en grup i defensar-los oralment, perquè en molts la resposta correcta no és un número sinó un argument.</p>
+</div>
+</div>
+
+<div style="max-width:none">
+<div class="ex-cap"><div class="filtres" data-bloc="G"></div></div>
+<div id="ex-G"></div>
+</div>
+</div>
+</section>
+</div>
+<div id="magatzem-ex" hidden>
+
+<!-- ========== BLOC A ========== -->
+<article class="ex" data-bloc="A" data-niv="N1" data-codi="A·1">
+<div class="ex-enun"><p>Indica a quins conjunts ($\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{I}$, $\mathbb{R}$) pertany cadascun d'aquests nombres:</p>
+<p>$$7 \qquad -5 \qquad \tfrac{3}{4} \qquad \sqrt{25} \qquad \sqrt{7} \qquad 0{,}272727\ldots \qquad \tfrac{\pi}{2} \qquad \sqrt[3]{-8}$$</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<p>Abans de classificar cal <strong>simplificar</strong>: molts nombres canvien de conjunt quan s'operen.</p>
+<ol class="passos">
+<li>$7$ és natural, i per tant també enter, racional i real → $\mathbb{N},\mathbb{Z},\mathbb{Q},\mathbb{R}$</li>
+<li>$-5$ no és natural → $\mathbb{Z},\mathbb{Q},\mathbb{R}$</li>
+<li>$\tfrac{3}{4}$ no és enter → $\mathbb{Q},\mathbb{R}$</li>
+<li>$\sqrt{25}=5$: l'arrel és exacta → $\mathbb{N},\mathbb{Z},\mathbb{Q},\mathbb{R}$</li>
+<li>$\sqrt{7}$: 7 no és quadrat perfecte → $\mathbb{I},\mathbb{R}$</li>
+<li>$0{,}\overline{27}=\tfrac{27}{99}=\tfrac{3}{11}$: periòdic, doncs racional → $\mathbb{Q},\mathbb{R}$</li>
+<li>$\tfrac{\pi}{2}$: un irracional dividit per un enter no nul continua sent irracional → $\mathbb{I},\mathbb{R}$</li>
+<li>$\sqrt[3]{-8}=-2$: l'índex és senar, per tant existeix i és exacta → $\mathbb{Z},\mathbb{Q},\mathbb{R}$</li>
+</ol></div>
+<div class="origen">Adaptat de <em>1_Classificacio_de_nombres.pdf</em></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N1" data-codi="A·2">
+<div class="ex-enun"><p>Escriu en forma de fracció generatriu irreductible, justificant el procediment:</p>
+<p>$$\text{a) } 0{,}\overline{7} \qquad \text{b) } 0{,}\overline{25} \qquad \text{c) } 0{,}4\overline{1}$$</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<ol class="passos">
+<li><strong>a)</strong> $x=0{,}777\ldots$ → $10x=7{,}777\ldots$ → $10x-x=7$ → $9x=7$ → $x=\dfrac{7}{9}$</li>
+<li><strong>b)</strong> El període té dues xifres, cal multiplicar per 100: $100x-x=25$ → $99x=25$ → $x=\dfrac{25}{99}$</li>
+<li><strong>c)</strong> Hi ha una xifra d'avantperíode i una de període:
+$$10x=4{,}111\ldots \qquad 100x=41{,}111\ldots$$
+$$100x-10x=37 \;\Longrightarrow\; 90x=37 \;\Longrightarrow\; x=\frac{37}{90}$$
+Comprovació: $37:90=0{,}4111\ldots$ ✓</li>
+</ol></div>
+<div class="origen">Adaptat de <em>1_Classificacio_de_nombres.pdf</em></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N1" data-codi="A·3" data-resp="122/99" data-retro="Recorda: numerador = tot el nombre sense comes menys la part sencera; denominador = tants nous com xifres té el període.">
+<div class="ex-enun"><p>Escriu $1{,}\overline{23}$ com a fracció irreductible.</p></div>
+<div class="ex-sol"><p>$x=1{,}232323\ldots$; $100x-x=122$; $99x=122$; $x=\dfrac{122}{99}$ (ja és irreductible).</p></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N1" data-codi="A·4" data-resp="(-3,5]|(−3,5]|(-3, 5]" data-retro="L'extrem que no pertany al conjunt va amb parèntesi; el que hi pertany, amb claudàtor.">
+<div class="ex-enun"><p>Escriu en notació d'interval el conjunt $\{x\in\mathbb{R}\ :\ -3&lt;x\leq 5\}$.</p></div>
+<div class="ex-sol"><p>$(-3,5]$. El $-3$ queda fora perquè la desigualtat és estricta; el $5$ hi entra.</p></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N1" data-codi="A·5">
+<div class="ex-enun"><p>Digues si són racionals o irracionals, i justifica-ho:</p>
+<p>a) $\sqrt{49}$ &nbsp; b) $\sqrt{50}$ &nbsp; c) $0{,}1010010001\ldots$ &nbsp; d) $\dfrac{3\pi}{\pi}$ &nbsp; e) $1{,}2\overline{5}$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) Racional: $\sqrt{49}=7$.</li>
+<li>b) Irracional: 50 no és quadrat perfecte ($\sqrt{50}=5\sqrt{2}$, i $\sqrt2$ és irracional).</li>
+<li>c) Irracional: té infinites xifres i cap període (el nombre de zeros creix cada vegada).</li>
+<li>d) Racional: se simplifica i dona 3. Un quocient d'irracionals pot ser racional.</li>
+<li>e) Racional: tot decimal periòdic ho és.</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N2" data-codi="A·6">
+<div class="ex-enun"><p>Considera els subconjunts de $\mathbb{R}$:</p>
+<p>$$A=(-\infty,3] \quad B=(-1,+\infty) \quad C=\{x\in\mathbb{R}: 0\leq x\leq 5\} \quad D=(-\infty,-2] \quad E=\mathbb{R}-\{x\in\mathbb{R}: x&lt;2\}$$</p>
+<p>a) Expressa'ls tots en notació d'interval. &nbsp; b) Representa'ls sobre la recta real. &nbsp; c) Calcula $A\cup B$, $A\cap B$, $C\cap D$ i $C\cup E$.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> $C=[0,5]$ i $E=[2,+\infty)$ (traiem de $\mathbb{R}$ tot el que és menor que 2, per tant el 2 hi queda).</li>
+<li><strong>c)</strong> $A\cup B=\mathbb{R}$ · $A\cap B=(-1,3]$ · $C\cap D=\varnothing$ · $C\cup E=[0,+\infty)$</li>
+</ol></div>
+<div class="origen">Font: <em>2_Intervals__Unió_i_intersecció.pdf</em></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N2" data-codi="A·7">
+<div class="ex-enun"><p>Considera:</p>
+<p>$$A=(-2,2] \quad B=[-1,0] \quad C=\{x\in\mathbb{R}: -4\leq x\leq 5\} \quad D=A-\{1\}$$</p>
+<p>a) Escriu $C$ i $D$ en notació d'interval. &nbsp; b) Representa'ls. &nbsp; c) Calcula $A\cup B$, $A\cap C$, $C\cup D$ i $B\cup C$.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> $C=[-4,5]$ · $D=(-2,1)\cup(1,2]$ (treure un punt interior trenca l'interval en dos).</li>
+<li><strong>c)</strong> $A\cup B=(-2,2]$ perquè $B\subset A$ · $A\cap C=(-2,2]$ perquè $A\subset C$ · $C\cup D=[-4,5]$ · $B\cup C=[-4,5]$</li>
+</ol></div>
+<div class="origen">Font: <em>3_Intervals__Unió_i_intersecció.pdf</em></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N2" data-codi="A·8" data-resp="0,0043|0.0043" data-retro="Calcula primer 2:7 amb prou decimals i després resta-hi 0,29 en valor absolut.">
+<div class="ex-enun"><p>En arrodonir $\tfrac{2}{7}$ a les centèsimes s'obté $0{,}29$. Calcula l'error absolut i dona'l arrodonit a les deumil·lèsimes.</p></div>
+<div class="ex-sol"><p>$\tfrac{2}{7}=0{,}285714\ldots$; $E_a=\lvert 0{,}285714-0{,}29\rvert=0{,}0042857\ldots\approx 0{,}0043$.</p>
+<p>L'error relatiu és $E_r=\dfrac{0{,}0042857}{0{,}285714}=0{,}015=1{,}5\,\%$.</p></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N2" data-codi="A·9">
+<div class="ex-enun"><p>a) Escriu l'interval $(1{,}9\ ;\ 2{,}1)$ com un entorn $E(a,r)$.<br>
+b) Escriu l'entorn $E(-3\ ;\ 0{,}5)$ com un interval i com una desigualtat amb valor absolut.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) El centre és el punt mitjà: $a=\dfrac{1{,}9+2{,}1}{2}=2$; el radi és la semiamplada: $r=0{,}1$. Per tant $E(2\ ;\ 0{,}1)$.</li>
+<li>b) $E(-3\ ;\ 0{,}5)=(-3{,}5\ ;\ -2{,}5)=\{x\in\mathbb{R}: \lvert x+3\rvert&lt;0{,}5\}$</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N3" data-codi="A·10" data-bat="1">
+<div class="ex-enun"><p>En mesurar una peça s'obté $24{,}7$ mm amb una fita d'error absolut de $0{,}05$ mm.</p>
+<p>a) Entre quins valors es troba la mesura real? &nbsp; b) Escriu-ho amb una desigualtat amb valor absolut. &nbsp; c) Dona una fita de l'error relatiu, en percentatge.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $[24{,}65\ ;\ 24{,}75]$</li>
+<li>b) $\lvert x-24{,}7\rvert\leq 0{,}05$</li>
+<li>c) La fita s'obté al cas més desfavorable, que és quan el valor real és el més petit possible:
+$$E_r\leq\frac{0{,}05}{24{,}65}=0{,}00203\ldots\approx 0{,}20\,\%$$
+Prendre $24{,}7$ al denominador dona $0{,}202\,\%$: la diferència és menyspreable, però la fita rigorosa és la primera.</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N3" data-codi="A·11" data-bat="1">
+<div class="ex-enun"><p>Demostra que $\sqrt{3}$ és irracional, adaptant l'argument que s'ha fet per a $\sqrt{2}$.</p></div>
+<div class="ex-sol"><p>Suposem $\sqrt3=\frac{p}{q}$ irreductible. Aleshores $p^{2}=3q^{2}$, de manera que $p^{2}$ és múltiple de 3.</p>
+<p>Aquí cal el pas clau: si $3$ divideix $p^{2}$ i $3$ és primer, aleshores $3$ divideix $p$. Escrivim $p=3k$:</p>
+$$9k^{2}=3q^{2}\;\Longrightarrow\;q^{2}=3k^{2}$$
+<p>Per tant $q$ també és múltiple de 3, i la fracció no era irreductible. Contradicció, doncs $\sqrt3\notin\mathbb{Q}$.</p>
+<p>L'argument funciona per a $\sqrt{p}$ amb $p$ primer qualsevol, però <strong>no</strong> per a $\sqrt{4}$: en aquest cas «$4$ divideix $p^2$» no implica «$4$ divideix $p$», perquè 4 no és primer.</p></div>
+</article>
+
+<article class="ex" data-bloc="A" data-niv="N3" data-codi="A·12">
+<div class="ex-enun"><p>Troba tres nombres racionals i un nombre irracional compresos entre $1{,}41$ i $1{,}42$. Justifica que l'irracional que has triat hi és.</p></div>
+<div class="ex-sol"><p>Racionals: n'hi ha infinits; per exemple $1{,}411$, $1{,}415=\tfrac{283}{200}$ i $1{,}4199$.</p>
+<p>Irracional: $\sqrt2=1{,}41421356\ldots$ Com que $1{,}41&lt;1{,}41421\ldots&lt;1{,}42$, hi és. Es pot justificar sense decimals elevant al quadrat: $1{,}41^{2}=1{,}9881&lt;2&lt;2{,}0164=1{,}42^{2}$.</p></div>
+</article>
+
+<!-- ========== BLOC B ========== -->
+<article class="ex" data-bloc="B" data-niv="N1" data-codi="B·1">
+<div class="ex-enun"><p>Un cotxe consumeix $5{,}4$ L de combustible cada 100 km.</p>
+<p>a) Quants litres necessita per a 250 km? &nbsp; b) Quants quilòmetres pot fer amb 40 L?</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<ol class="passos">
+<li>Les magnituds són directament proporcionals: més quilòmetres, més consum. La constant és el consum per quilòmetre:
+$$k=\frac{5{,}4\ \text{L}}{100\ \text{km}}=0{,}054\ \text{L/km}$$</li>
+<li><strong>a)</strong> $L=0{,}054\cdot 250=13{,}5$ L</li>
+<li><strong>b)</strong> $\text{km}=\dfrac{40}{0{,}054}=740{,}74\ldots\approx 740{,}7$ km</li>
+</ol>
+<p>Un cop identificada $k$, qualsevol pregunta del context es respon sense tornar a plantejar cap regla de tres.</p></div>
+</article>
+
+<article class="ex" data-bloc="B" data-niv="N1" data-codi="B·2" data-resp="92|92€|92 €" data-retro="Un augment del 15 % vol dir multiplicar per l'índex 1,15.">
+<div class="ex-enun"><p>Un article val 80 € i puja un 15 %. Quin és el preu final, en euros?</p></div>
+<div class="ex-sol"><p>$80\cdot 1{,}15=92$ €</p></div>
+</article>
+
+<article class="ex" data-bloc="B" data-niv="N1" data-codi="B·3" data-resp="70|70€|70 €" data-retro="El preu final és el 90 % de l'inicial. Cal dividir, no restar el 10 % de 63.">
+<div class="ex-enun"><p>Després d'una rebaixa del 10 %, un article costa 63 €. Quin era el preu inicial?</p></div>
+<div class="ex-sol"><p>$P\cdot 0{,}90=63\;\Rightarrow\;P=\dfrac{63}{0{,}90}=70$ €. Comprovació: $70\cdot0{,}9=63$ ✓</p>
+<p>L'error habitual és calcular $63+10\%$ de $63=69{,}30$ €, que aplica el percentatge sobre la base equivocada.</p></div>
+</article>
+
+<article class="ex" data-bloc="B" data-niv="N2" data-codi="B·4" data-resp="93,75|93.75|93,75%|93,75 %" data-retro="Multiplica els dos índexs de variació: 1,25 i 0,75.">
+<div class="ex-enun"><p>Un preu puja un 25 % i tot seguit baixa un 25 %. Quin percentatge del preu inicial queda al final?</p></div>
+<div class="ex-sol"><p>$1{,}25\cdot 0{,}75=0{,}9375$ → queda el <strong>93,75 %</strong>, és a dir, s'ha perdut un 6,25 %.</p>
+<p>No es recupera el preu inicial perquè la baixada s'aplica sobre una base més gran que la pujada.</p></div>
+</article>
+
+<article class="ex" data-bloc="B" data-niv="N2" data-codi="B·5" data-resp="2880" data-retro="Calcula primer quantes peces fa una màquina en una hora.">
+<div class="ex-enun"><p>Vuit màquines fabriquen 1200 peces en 5 hores. Quantes peces faran 12 màquines en 8 hores, treballant al mateix ritme?</p></div>
+<div class="ex-sol"><p>Peces per màquina i hora: $\dfrac{1200}{8\cdot 5}=30$.</p>
+<p>Resultat: $12\cdot 8\cdot 30=2880$ peces. La producció és directament proporcional tant al nombre de màquines com al temps.</p></div>
+</article>
+
+<article class="ex" data-bloc="B" data-niv="N2" data-codi="B·6" data-resp="2318,55|2318.55|2318,55€" data-retro="Interès compost: multiplica el capital per 1,03 cinc vegades, és a dir, per 1,03 elevat a 5.">
+<div class="ex-enun"><p>Es dipositen 2000 € al 3 % anual d'interès compost durant 5 anys. Quin capital hi haurà al final, arrodonit al cèntim?</p></div>
+<div class="ex-sol"><p>$C_f=2000\cdot(1{,}03)^{5}=2000\cdot 1{,}1592740\ldots=2318{,}548\ldots\approx 2318{,}55$ €</p>
+<p>Amb interès simple només serien $2000+2000\cdot0{,}03\cdot5=2300$ €. La diferència de 18,55 € és l'interès generat pels interessos.</p></div>
+</article>
+
+<article class="ex" data-bloc="B" data-niv="N3" data-codi="B·7" data-bat="1" data-resp="18|18 anys" data-retro="Planteja 1,04 elevat a t igual a 2 i aïlla t amb logaritmes.">
+<div class="ex-enun"><p>Quants anys complets triga un capital a duplicar-se al 4 % anual d'interès compost?</p></div>
+<div class="ex-sol"><p>$(1{,}04)^{t}=2\;\Rightarrow\;t=\dfrac{\log 2}{\log 1{,}04}=\dfrac{0{,}30103}{0{,}0170333}=17{,}67\ldots$</p>
+<p>Com que els interessos s'abonen a final d'any, calen <strong>18 anys</strong>. Comprovació: $1{,}04^{17}=1{,}948$ (encara no arriba) i $1{,}04^{18}=2{,}026$ ✓</p>
+<p>Aquest exercici connecta el bloc B amb el bloc E: sense logaritmes, l'exponent no es pot aïllar.</p></div>
+</article>
+
+<article class="ex" data-bloc="B" data-niv="N3" data-codi="B·8" data-resp="0,924|0.924" data-retro="Multiplica els tres índexs: 1,10 · 0,80 · 1,05.">
+<div class="ex-enun"><p>Un producte pateix tres variacions successives: $+10\,\%$, $-20\,\%$ i $+5\,\%$.</p>
+<p>a) Quin és l'índex de variació global? &nbsp; b) Quina variació percentual única hi equival? &nbsp; c) Canviaria el resultat si les variacions s'apliquessin en un altre ordre?</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $1{,}10\cdot 0{,}80\cdot 1{,}05=0{,}924$</li>
+<li>b) $0{,}924=1-0{,}076$ → una disminució única del <strong>7,6 %</strong></li>
+<li>c) No. El producte de nombres reals és commutatiu, per tant l'ordre no altera l'índex global. El que sí que canvia és l'import en euros de cada descompte intermedi.</li>
+</ol></div>
+</article>
+
+<!-- ========== BLOC C ========== -->
+<article class="ex" data-bloc="C" data-niv="N1" data-codi="C·1">
+<div class="ex-enun"><p>Expressa el resultat en forma d'una sola potència d'exponent positiu:</p>
+<p>$$(-2)^{2}\cdot(-2^{2})\cdot(-2^{3}):2^{5}$$</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<p>L'estratègia és separar <strong>signe</strong> i <strong>base</strong>, i només després sumar exponents.</p>
+<ol class="passos">
+<li>$(-2)^{2}=2^{2}$ (exponent parell, el signe desapareix)</li>
+<li>$-2^{2}=-1\cdot 2^{2}$ (sense parèntesi, el signe queda fora)</li>
+<li>$-2^{3}=-1\cdot 2^{3}$</li>
+<li>Signes: $(+1)\cdot(-1)\cdot(-1)=+1$</li>
+<li>Exponents: $2^{2+2+3-5}=2^{2}=4$</li>
+</ol>
+<p>Resultat: $2^{2}$.</p></div>
+<div class="origen">Adaptat de <em>1_Exercici_potències.pdf</em> i <em>5_potències.pdf</em> (enunciats coincidents; se'n conserva un de sol)</div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N1" data-codi="C·2" data-resp="1/3" data-retro="Suma i resta els exponents de la mateixa base, i després passa l'exponent negatiu a fracció.">
+<div class="ex-enun"><p>Escriu com a fracció irreductible: $\dfrac{3^{-2}\cdot 3^{5}}{3^{4}}$</p></div>
+<div class="ex-sol"><p>$3^{-2+5-4}=3^{-1}=\dfrac{1}{3}$</p></div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N1" data-codi="C·3" data-resp="125/8" data-retro="Un exponent negatiu inverteix la fracció i canvia el signe de l'exponent.">
+<div class="ex-enun"><p>Calcula $\left(\dfrac{2}{5}\right)^{-3}$ i dona el resultat com a fracció.</p></div>
+<div class="ex-sol"><p>$\left(\dfrac{2}{5}\right)^{-3}=\left(\dfrac{5}{2}\right)^{3}=\dfrac{125}{8}$</p></div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N1" data-codi="C·4" data-resp="0,0108|0.0108" data-retro="Multiplica les mantisses i suma els exponents; després passa-ho a forma decimal.">
+<div class="ex-enun"><p>Calcula $(5{,}4\cdot 10^{6})\cdot(2\cdot 10^{-9})$ i escriu el resultat en forma decimal.</p></div>
+<div class="ex-sol"><p>$5{,}4\cdot 2=10{,}8$ i $10^{6-9}=10^{-3}$, per tant $10{,}8\cdot 10^{-3}=1{,}08\cdot 10^{-2}=0{,}0108$.</p>
+<p>Cal el reajustament final perquè la mantissa ha de complir $1\leq\lvert a\rvert&lt;10$.</p></div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N2" data-codi="C·5" data-resp="25|5^2|5²" data-retro="Escriu (−5)³ com a −5³ i tracta el signe a part.">
+<div class="ex-enun"><p>Expressa com una sola potència i calcula'n el valor: $\left[(-5)^{3}\cdot 5^{-2}\right]:(-5)^{-1}$</p></div>
+<div class="ex-sol"><p>$(-5)^{3}=-5^{3}$ i $(-5)^{-1}=-5^{-1}$. Els dos signes negatius es cancel·len en dividir:</p>
+$$\frac{-5^{3}\cdot 5^{-2}}{-5^{-1}}=5^{3-2-(-1)}=5^{2}=25$$</div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N2" data-codi="C·6" data-resp="a^2|a²|a2" data-retro="Simplifica primer el que hi ha dins del claudàtor: què val a elevat a 0?">
+<div class="ex-enun"><p>Simplifica, amb $a\neq 0$, deixant el resultat amb exponent positiu:</p>
+<p>$$\left[\frac{a^{-2}\cdot a^{5}}{a^{3}}\right]^{-4}\cdot a^{2}$$</p></div>
+<div class="ex-sol"><p>Dins del claudàtor: $a^{-2+5-3}=a^{0}=1$. I $1^{-4}=1$.</p>
+<p>Resultat: $1\cdot a^{2}=a^{2}$. Val la pena simplificar l'interior abans d'atacar l'exponent exterior; fer-ho a l'inrevés multiplica la feina sense necessitat.</p></div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N2" data-codi="C·7" data-resp="334000|3,34·10^5|3,34x10^5|3.34e5|3,34e5" data-retro="Iguala primer tots els termes al mateix exponent de 10 abans de sumar.">
+<div class="ex-enun"><p>Calcula $3\cdot 10^{5}+4{,}2\cdot 10^{4}-8\cdot 10^{3}$ i expressa el resultat en notació científica.</p></div>
+<div class="ex-sol"><p>Passem-ho tot a $10^{5}$:</p>
+$$3\cdot 10^{5}+0{,}42\cdot 10^{5}-0{,}08\cdot 10^{5}=(3+0{,}42-0{,}08)\cdot 10^{5}=3{,}34\cdot 10^{5}$$
+<p>És a dir, 334 000.</p></div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N2" data-codi="C·8">
+<div class="ex-enun"><p>La massa del Sol és $1{,}989\cdot 10^{30}$ kg i la de la Terra, $5{,}972\cdot 10^{24}$ kg. Quantes vegades és més massiu el Sol? Expressa-ho en notació científica amb tres xifres significatives.</p></div>
+<div class="ex-sol"><p>$\dfrac{1{,}989\cdot 10^{30}}{5{,}972\cdot 10^{24}}=\dfrac{1{,}989}{5{,}972}\cdot 10^{6}=0{,}3330\cdot 10^{6}=3{,}33\cdot 10^{5}$</p>
+<p>Unes 333 000 vegades. Fixa't que la mantissa ha calgut reajustar-la perquè el quocient era menor que 1.</p></div>
+<div class="origen">Dades: NASA Planetary Fact Sheet</div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N3" data-codi="C·9" data-bat="1" data-resp="a^13/b^9|a13/b9" data-retro="Simplifica primer l'interior del parèntesi restant exponents, i després aplica l'exponent −2.">
+<div class="ex-enun"><p>Simplifica, amb $a&gt;0$ i $b&gt;0$, deixant el resultat amb exponents positius:</p>
+<p>$$\left(\frac{a^{-3}b^{2}}{a^{2}b^{-1}}\right)^{-2}\cdot\left(\frac{a}{b}\right)^{3}$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Interior: $a^{-3-2}\,b^{2-(-1)}=a^{-5}b^{3}$</li>
+<li>Elevat a $-2$: $a^{10}b^{-6}$</li>
+<li>Segon factor: $a^{3}b^{-3}$</li>
+<li>Producte: $a^{10+3}b^{-6-3}=a^{13}b^{-9}=\dfrac{a^{13}}{b^{9}}$</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="C" data-niv="N3" data-codi="C·10" data-bat="1">
+<div class="ex-enun"><p>Un full de paper fa $0{,}1$ mm de gruix. Si es pogués doblegar per la meitat 42 vegades, quin gruix tindria? Compara el resultat amb la distància mitjana Terra–Lluna, $3{,}84\cdot 10^{5}$ km.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Cada plec duplica el gruix: després de 42 plecs el factor és $2^{42}\approx 4{,}398\cdot 10^{12}$.</li>
+<li>$0{,}1$ mm $=10^{-4}$ m, per tant el gruix és $10^{-4}\cdot 4{,}398\cdot 10^{12}=4{,}398\cdot 10^{8}$ m $=4{,}398\cdot 10^{5}$ km.</li>
+<li>Comparació: $\dfrac{4{,}398\cdot 10^{5}}{3{,}84\cdot 10^{5}}=1{,}15$. El paper <strong>superaria</strong> la Lluna en un 15 %.</li>
+</ol>
+<p>El resultat és contraintuïtiu perquè el creixement és exponencial, no proporcional al nombre de plecs.</p></div>
+</article>
+
+</div>
+<div class="magatzem-ex" hidden>
+
+<!-- ========== BLOC D ========== -->
+<article class="ex" data-bloc="D" data-niv="N1" data-codi="D·1">
+<div class="ex-enun"><p>Escriu en forma de potència, simplifica l'exponent i torna a escriure-ho com a radical, amb $a&gt;0$:</p>
+<p>$$\sqrt[4]{a^{6}}$$</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<ol class="passos">
+<li>Passem a exponent fraccionari: $\sqrt[4]{a^{6}}=a^{\frac{6}{4}}$</li>
+<li>Simplifiquem la fracció de l'exponent, que és el mateix que simplificar l'índex: $a^{\frac{6}{4}}=a^{\frac{3}{2}}$</li>
+<li>Tornem a radical: $a^{\frac{3}{2}}=\sqrt{a^{3}}$</li>
+<li>I encara podem extreure un factor: $\sqrt{a^{3}}=\sqrt{a^{2}\cdot a}=a\sqrt{a}$</li>
+</ol>
+<p>Resultat: $a\sqrt{a}$. Els tres passos són el mateix càlcul vist de tres maneres; convé fer-los sempre en aquest ordre.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N1" data-codi="D·2" data-resp="12" data-retro="Descompon 288 en factors primers: 288 = 2⁵·3². Treu del radical tot exponent que arribi a 2.">
+<div class="ex-enun"><p>En extreure factors s'obté $\sqrt{288}=k\sqrt{2}$. Quant val $k$?</p></div>
+<div class="ex-sol"><p>$288=2^{5}\cdot 3^{2}=2^{4}\cdot 3^{2}\cdot 2$, per tant $\sqrt{288}=2^{2}\cdot 3\sqrt{2}=12\sqrt{2}$. Així $k=12$.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N1" data-codi="D·3" data-resp="4" data-retro="Extreu factors de cada arrel per separat: totes tres es converteixen en múltiples de √2.">
+<div class="ex-enun"><p>Simplifica $\sqrt{50}-\sqrt{18}+\sqrt{8}$. El resultat és $k\sqrt{2}$: quant val $k$?</p></div>
+<div class="ex-sol"><p>$\sqrt{50}=5\sqrt2$ · $\sqrt{18}=3\sqrt2$ · $\sqrt{8}=2\sqrt2$</p>
+<p>$5\sqrt2-3\sqrt2+2\sqrt2=4\sqrt2$, per tant $k=4$. Els radicals no eren semblants fins que s'han extret els factors.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N1" data-codi="D·4">
+<div class="ex-enun"><p>Escriu en forma de radical, amb $x&gt;0$ i $a&gt;0$:</p>
+<p>a) $3^{\frac{2}{5}}$ &nbsp;&nbsp; b) $x^{-\frac{1}{2}}$ &nbsp;&nbsp; c) $(2a)^{\frac{3}{4}}$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $3^{\frac{2}{5}}=\sqrt[5]{3^{2}}=\sqrt[5]{9}$</li>
+<li>b) $x^{-\frac{1}{2}}=\dfrac{1}{x^{\frac12}}=\dfrac{1}{\sqrt{x}}=\dfrac{\sqrt{x}}{x}$ (racionalitzat)</li>
+<li>c) $(2a)^{\frac34}=\sqrt[4]{(2a)^{3}}=\sqrt[4]{8a^{3}}$ — l'exponent afecta tot el parèntesi, també el 2</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N1" data-codi="D·5" data-resp="2" data-retro="Escriu 8 com a potència de 2 i simplifica la fracció de l'exponent.">
+<div class="ex-enun"><p>Simplifica $\sqrt[6]{8}$. El resultat és $\sqrt[n]{2}$: quant val $n$?</p></div>
+<div class="ex-sol"><p>$\sqrt[6]{8}=\sqrt[6]{2^{3}}=2^{\frac{3}{6}}=2^{\frac12}=\sqrt{2}$, per tant $n=2$.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N2" data-codi="D·6">
+<div class="ex-enun"><p>Efectua i simplifica: $7\sqrt{450}-9\sqrt{288}+\sqrt{128}$</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<ol class="passos">
+<li>$450=2\cdot 3^{2}\cdot 5^{2}$ → $\sqrt{450}=3\cdot 5\sqrt2=15\sqrt2$ → $7\sqrt{450}=105\sqrt2$</li>
+<li>$288=2^{5}\cdot 3^{2}$ → $\sqrt{288}=12\sqrt2$ → $9\sqrt{288}=108\sqrt2$</li>
+<li>$128=2^{7}$ → $\sqrt{128}=2^{3}\sqrt2=8\sqrt2$</li>
+<li>Ara ja són semblants: $105\sqrt2-108\sqrt2+8\sqrt2=5\sqrt2$</li>
+</ol>
+<p>Resultat: $5\sqrt2$. Cap dels tres radicals de l'enunciat és semblant als altres fins que no s'extreuen els factors; aquest és tot el treball de l'exercici.</p></div>
+<div class="origen">Adaptat de <em>Exercicis_control_Nadal.pdf</em>, ex. 3</div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N2" data-codi="D·7" data-resp="2" data-retro="Multiplica numerador i denominador per √6 i simplifica la fracció resultant.">
+<div class="ex-enun"><p>Racionalitza i simplifica $\dfrac{12}{\sqrt{6}}$. El resultat és $k\sqrt6$: quant val $k$?</p></div>
+<div class="ex-sol"><p>$\dfrac{12}{\sqrt6}=\dfrac{12\sqrt6}{6}=2\sqrt6$, per tant $k=2$.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N2" data-codi="D·8" data-resp="2" data-retro="Multiplica pel conjugat del denominador, √7+√2, i recorda que (x−y)(x+y)=x²−y².">
+<div class="ex-enun"><p>Racionalitza $\dfrac{10}{\sqrt{7}-\sqrt{2}}$. El resultat té la forma $k(\sqrt7+\sqrt2)$: quant val $k$?</p></div>
+<div class="ex-sol"><p>$$\frac{10}{\sqrt7-\sqrt2}=\frac{10(\sqrt7+\sqrt2)}{(\sqrt7)^{2}-(\sqrt2)^{2}}=\frac{10(\sqrt7+\sqrt2)}{7-2}=\frac{10(\sqrt7+\sqrt2)}{5}=2(\sqrt7+\sqrt2)$$</p>
+<p>Per tant $k=2$.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N2" data-codi="D·9">
+<div class="ex-enun"><p>Efectua, deixant el resultat com un únic radical simplificat ($a&gt;0$):</p>
+<p>a) $\sqrt{3}\cdot\sqrt[4]{3}$ &nbsp;&nbsp; b) $\sqrt[3]{2}\cdot\sqrt{2}$ &nbsp;&nbsp; c) $\sqrt{\sqrt[3]{64}}$ &nbsp;&nbsp; d) $\left(\sqrt[5]{a^{3}}\right)^{2}$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $3^{\frac12+\frac14}=3^{\frac34}=\sqrt[4]{27}$</li>
+<li>b) $2^{\frac13+\frac12}=2^{\frac56}=\sqrt[6]{32}$</li>
+<li>c) $\sqrt[2\cdot 3]{64}=\sqrt[6]{2^{6}}=2$</li>
+<li>d) $a^{\frac{6}{5}}=\sqrt[5]{a^{6}}=a\sqrt[5]{a}$</li>
+</ol>
+<p>En tots els casos, passar a exponent fraccionari evita haver de recordar cap regla específica de radicals.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N2" data-codi="D·10" data-resp="1" data-retro="És una suma per diferència: (x+y)(x−y)=x²−y².">
+<div class="ex-enun"><p>Calcula $(\sqrt5+2)(\sqrt5-2)$.</p></div>
+<div class="ex-sol"><p>$(\sqrt5)^{2}-2^{2}=5-4=1$. El producte de dos irracionals pot ser perfectament un enter.</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N2" data-codi="D·11" data-resp="13" data-retro="Desenvolupa el quadrat d'una diferència: (x−y)² = x² − 2xy + y².">
+<div class="ex-enun"><p>Desenvolupa $(2\sqrt3-1)^{2}$. El resultat té la forma $a-b\sqrt3$: quant val $a$?</p></div>
+<div class="ex-sol"><p>$(2\sqrt3)^{2}-2\cdot 2\sqrt3\cdot 1+1^{2}=12-4\sqrt3+1=13-4\sqrt3$, per tant $a=13$ (i $b=4$).</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N3" data-codi="D·12" data-bat="1">
+<div class="ex-enun"><p>Simplifica, amb $a&gt;0$:</p>
+<p>$$\sqrt{a^{2}\sqrt{a}}\cdot\sqrt[6]{a^{5}\sqrt{a^{3}}}$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Primer factor: $\sqrt{a^{2}\cdot a^{\frac12}}=\sqrt{a^{\frac52}}=a^{\frac54}$</li>
+<li>Segon factor: $\sqrt[6]{a^{5}\cdot a^{\frac32}}=\sqrt[6]{a^{\frac{13}{2}}}=a^{\frac{13}{12}}$</li>
+<li>Producte: $a^{\frac54+\frac{13}{12}}=a^{\frac{15+13}{12}}=a^{\frac{28}{12}}=a^{\frac73}$</li>
+<li>$a^{\frac73}=a^{2}\cdot a^{\frac13}=a^{2}\sqrt[3]{a}$</li>
+</ol></div>
+<div class="origen">Font: <em>Reals_i_Radicals-Exercicis.pdf</em>, ex. 1k</div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N3" data-codi="D·13" data-bat="1">
+<div class="ex-enun"><p>Calcula i deixa el resultat racionalitzat i simplificat:</p>
+<p>$$\frac{4+\sqrt2}{\sqrt5-\sqrt3}-\frac{2}{\sqrt{10}-\sqrt6}$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Primer terme, multiplicant pel conjugat $\sqrt5+\sqrt3$:
+$$\frac{(4+\sqrt2)(\sqrt5+\sqrt3)}{5-3}=\frac{4\sqrt5+4\sqrt3+\sqrt{10}+\sqrt6}{2}$$</li>
+<li>Segon terme, multiplicant pel conjugat $\sqrt{10}+\sqrt6$:
+$$\frac{2(\sqrt{10}+\sqrt6)}{10-6}=\frac{\sqrt{10}+\sqrt6}{2}$$</li>
+<li>Restant, els termes $\sqrt{10}$ i $\sqrt6$ s'anul·len:
+$$\frac{4\sqrt5+4\sqrt3}{2}=2\sqrt5+2\sqrt3=2(\sqrt5+\sqrt3)$$</li>
+</ol>
+<p>La cancel·lació no és casual: $\sqrt2\cdot\sqrt5=\sqrt{10}$ i $\sqrt2\cdot\sqrt3=\sqrt6$, i és el que fa que l'exercici tingui una resposta neta.</p></div>
+<div class="origen">Font: <em>2_Examen_MAT_4t_novembre_2017.pdf</em>, ex. 6</div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N3" data-codi="D·14" data-bat="1" data-resp="a" data-retro="Suma els exponents fraccionaris de l'interior abans d'aplicar l'exponent −3.">
+<div class="ex-enun"><p>Simplifica, amb $a&gt;0$:</p>
+<p>$$\left(\frac{a^{\frac12}\cdot a^{-\frac23}}{a^{\frac16}}\right)^{-3}$$</p></div>
+<div class="ex-sol"><p>Interior: $a^{\frac12-\frac23-\frac16}=a^{\frac{3-4-1}{6}}=a^{-\frac13}$</p>
+<p>Elevat a $-3$: $\left(a^{-\frac13}\right)^{-3}=a^{1}=a$</p></div>
+</article>
+
+<article class="ex" data-bloc="D" data-niv="N3" data-codi="D·15" data-bat="1">
+<div class="ex-enun"><p>Analitza si les igualtats següents són certes o falses. Si són falses, escriu la versió correcta i posa un contraexemple numèric.</p>
+<p>a) $\sqrt{a^{2}+b^{2}}=a+b$ &nbsp;&nbsp; b) $\sqrt[3]{x^{6}}=x^{2}$ &nbsp;&nbsp; c) $\sqrt[4]{x^{4}}=x$ &nbsp;&nbsp; d) $\dfrac{\sqrt{a}}{\sqrt{b}}=\sqrt{\dfrac{a}{b}}$ amb $a\geq 0,\ b&gt;0$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) <strong>Falsa.</strong> L'arrel no es reparteix sobre sumes. Contraexemple: $a=3$, $b=4$ donen $\sqrt{25}=5\neq 7$. No hi ha cap simplificació possible.</li>
+<li>b) <strong>Certa</strong> per a qualsevol $x$ real: $x^{\frac63}=x^{2}$, i el resultat és positiu tant si $x$ ho és com si no.</li>
+<li>c) <strong>Falsa.</strong> El correcte és $\sqrt[4]{x^{4}}=\lvert x\rvert$. Contraexemple: $x=-2$ dona $\sqrt[4]{16}=2\neq -2$.</li>
+<li>d) <strong>Certa.</strong> És la propietat del quocient de radicals del mateix índex, i les condicions $a\geq0$, $b&gt;0$ garanteixen que tot existeixi.</li>
+</ol>
+<p>Els apartats b) i c) es diferencien només en la paritat de l'índex, que és precisament el que decideix si cal valor absolut.</p></div>
+<div class="origen">Adaptat de <em>6_Exercicis_potències_i_radicals.pdf</em>, apartat 7B</div>
+</article>
+
+<!-- ========== BLOC E ========== -->
+<article class="ex" data-bloc="E" data-niv="N1" data-codi="E·1">
+<div class="ex-enun"><p>Calcula sense calculadora: $\log_{2}64$ &nbsp;·&nbsp; $\log_{3}\dfrac19$ &nbsp;·&nbsp; $\log 1000$ &nbsp;·&nbsp; $\log_{5}1$</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<p>En tots els casos la pregunta és la mateixa: <em>a quin exponent he d'elevar la base per obtenir aquest nombre?</em></p>
+<ol class="passos">
+<li>$\log_{2}64$: $2^{?}=64$. Com que $2^{6}=64$, el resultat és $6$.</li>
+<li>$\log_{3}\frac19$: $3^{?}=\frac19=3^{-2}$, per tant $-2$. Els logaritmes de nombres entre 0 i 1 són negatius.</li>
+<li>$\log 1000$: la base és 10 i $10^{3}=1000$, per tant $3$.</li>
+<li>$\log_{5}1$: $5^{?}=1$, i qualsevol base elevada a 0 dona 1, per tant $0$.</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N1" data-codi="E·2" data-resp="7" data-retro="Escriu 128 com a potència de 2.">
+<div class="ex-enun"><p>Calcula $\log_{2}128$.</p></div>
+<div class="ex-sol"><p>$2^{7}=128$, per tant $\log_{2}128=7$.</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N1" data-codi="E·3" data-resp="-3|−3" data-retro="1/27 és una potència de 3 amb exponent negatiu.">
+<div class="ex-enun"><p>Calcula $\log_{3}\dfrac{1}{27}$.</p></div>
+<div class="ex-sol"><p>$\dfrac{1}{27}=3^{-3}$, per tant el logaritme val $-3$.</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N1" data-codi="E·4" data-resp="10000|10 000|10^4" data-retro="Aplica la definició: si log x = 4 en base 10, aleshores x = 10⁴.">
+<div class="ex-enun"><p>Si $\log x=4$, quant val $x$?</p></div>
+<div class="ex-sol"><p>Per definició, $x=10^{4}=10\,000$.</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·5" data-resp="0,7781|0.7781|0,778" data-retro="6 = 2·3, i el logaritme d'un producte és la suma de logaritmes.">
+<div class="ex-enun"><p>Sabent que $\log 2\approx 0{,}3010$ i $\log 3\approx 0{,}4771$, calcula $\log 6$ amb quatre decimals, sense calculadora.</p></div>
+<div class="ex-sol"><p>$\log 6=\log(2\cdot 3)=\log 2+\log 3=0{,}3010+0{,}4771=0{,}7781$</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·6" data-resp="0,699|0.699|0,6990" data-retro="Escriu 5 com un quocient en què només hi apareguin 10 i 2.">
+<div class="ex-enun"><p>Amb les mateixes dades de l'exercici anterior, calcula $\log 5$.</p></div>
+<div class="ex-sol"><p>$\log 5=\log\dfrac{10}{2}=\log 10-\log 2=1-0{,}3010=0{,}6990$</p>
+<p>El truc de reescriure 5 com a $10:2$ evita haver de conèixer $\log 5$ per separat.</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·7">
+<div class="ex-enun"><p>Desenvolupa, aplicant les propietats dels logaritmes ($a,b,c&gt;0$):</p>
+<p>$$\log\left(\frac{a^{2}\sqrt{b}}{c^{3}}\right)$$</p></div>
+<div class="ex-sol"><p>$$\log(a^{2}\sqrt b)-\log c^{3}=\log a^{2}+\log\sqrt b-\log c^{3}=2\log a+\tfrac12\log b-3\log c$$</p>
+<p>L'ordre importa: primer el quocient, després el producte i finalment les potències. Fer-ho a l'inrevés porta sovint a perdre un signe.</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·8" data-resp="3" data-retro="Escriu 81 com a potència de 3 i iguala els exponents.">
+<div class="ex-enun"><p>Resol l'equació $3^{x+1}=81$.</p></div>
+<div class="ex-sol"><p>$81=3^{4}$, per tant $x+1=4$ i $x=3$. Quan els dos membres es poden escriure amb la mateixa base, no calen logaritmes.</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·9" data-bat="1" data-resp="2,807|2.807" data-retro="Fórmula del canvi de base: log₂7 = log7 / log2.">
+<div class="ex-enun"><p>Calcula $\log_{2}7$ amb tres decimals, aplicant el canvi de base.</p></div>
+<div class="ex-sol"><p>$$\log_{2}7=\frac{\log 7}{\log 2}=\frac{0{,}845098}{0{,}301030}=2{,}80735\ldots\approx 2{,}807$$</p>
+<p>Comprovació de coherència: $2^{2}=4$ i $2^{3}=8$, per tant el resultat havia d'estar entre 2 i 3, i més a prop de 3. ✓</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·10" data-bat="1" data-resp="1,931|1.931" data-retro="Pren logaritmes decimals als dos membres i baixa l'exponent com a factor.">
+<div class="ex-enun"><p>Resol $5^{2x-1}=100$ i dona la solució amb tres decimals.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>$\log\left(5^{2x-1}\right)=\log 100$ → $(2x-1)\log 5=2$</li>
+<li>$2x-1=\dfrac{2}{0{,}69897}=2{,}86142$</li>
+<li>$2x=3{,}86142$ → $x=1{,}93071\ldots\approx 1{,}931$</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·11" data-bat="1">
+<div class="ex-enun"><p>Escriu com un sol logaritme: $3\log a-\tfrac12\log b+\log c$, amb $a,b,c&gt;0$.</p></div>
+<div class="ex-sol"><p>$$3\log a-\tfrac12\log b+\log c=\log a^{3}-\log\sqrt b+\log c=\log\frac{a^{3}c}{\sqrt b}$$</p>
+<p>Si es demana racionalitzat: $\log\dfrac{a^{3}c\sqrt b}{b}$.</p></div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N1" data-codi="E·12">
+<div class="ex-enun"><p>Calcula sense calculadora, aplicant només la definició:</p>
+<p>a) $\log_{4}16$ &nbsp; b) $\log_{5}625$ &nbsp; c) $\log_{2}\dfrac12$ &nbsp; d) $\log_{4}\dfrac{1}{64}$ &nbsp; e) $\log_{4}1$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $4^{2}=16$ → $2$</li>
+<li>b) $5^{4}=625$ → $4$</li>
+<li>c) $2^{-1}=\frac12$ → $-1$</li>
+<li>d) $4^{-3}=\frac{1}{64}$ → $-3$</li>
+<li>e) $4^{0}=1$ → $0$</li>
+</ol></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 1</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N1" data-codi="E·13" data-resp="-4|−4" data-retro="Escriu 81 com una potència de 1/3. Recorda que la base és menor que 1.">
+<div class="ex-enun"><p>Calcula $\log_{1/3}81$.</p></div>
+<div class="ex-sol"><p>$\left(\frac13\right)^{-4}=3^{4}=81$, per tant el resultat és $-4$.</p>
+<p>Amb bases menors que 1 els signes s'inverteixen: el logaritme d'un nombre gran és negatiu.</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 1</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N1" data-codi="E·14" data-resp="1/2|0,5|0.5" data-retro="Quina potència de 25 dona 5?">
+<div class="ex-enun"><p>Calcula $\log_{25}5$.</p></div>
+<div class="ex-sol"><p>$25^{\frac12}=\sqrt{25}=5$, per tant $\log_{25}5=\dfrac12$. També: $\log\sqrt{\tfrac{1}{10}}=\log 10^{-\frac12}=-\dfrac12$.</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 1 i 2</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·15">
+<div class="ex-enun"><p>Troba el valor de $x$ en cada cas:</p>
+<p>a) $\log_{x}25=2$ &nbsp; b) $\log_{x}121=2$ &nbsp; c) $\log_{4}x=\dfrac32$ &nbsp; d) $\log_{x}\sqrt{2}=4$ &nbsp; e) $\log_{x}2x=2$ &nbsp; f) $\log_{3}\dfrac13=x$</p></div>
+<div class="ex-sol"><p>En tots els casos s'aplica la definició. Recorda que la base ha de complir $x&gt;0$ i $x\neq 1$.</p>
+<ol class="passos">
+<li>a) $x^{2}=25$ → $x=5$ (es descarta $-5$, la base no pot ser negativa)</li>
+<li>b) $x^{2}=121$ → $x=11$</li>
+<li>c) $x=4^{\frac32}=\left(\sqrt4\right)^{3}=8$</li>
+<li>d) $x^{4}=\sqrt2=2^{\frac12}$ → $x=2^{\frac18}=\sqrt[8]{2}$</li>
+<li>e) $x^{2}=2x$ → $x^{2}-2x=0$ → $x(x-2)=0$ → $x=2$ (es descarta $x=0$, no pot ser base)</li>
+<li>f) $3^{x}=\frac13$ → $x=-1$</li>
+</ol></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 2</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·16" data-resp="17" data-retro="Desenvolupa primer: log(A³B/100) = 3·logA + logB − log100.">
+<div class="ex-enun"><p>Sabent que $\log A=4$ i $\log B=7$, calcula $\log\dfrac{A^{3}B}{100}$.</p></div>
+<div class="ex-sol"><p>$3\log A+\log B-\log 100=3\cdot 4+7-2=12+7-2=17$</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 4</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·17">
+<div class="ex-enun"><p>Amb les mateixes dades ($\log A=4$, $\log B=7$), calcula:</p>
+<p>a) $\log(AB^{2})$ &nbsp; b) $\log(100A)$ &nbsp; c) $\log\dfrac{\sqrt{AB}}{1000}$ &nbsp; d) $\log\dfrac{1000A}{\sqrt[4]{B}}$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $\log A+2\log B=4+14=18$</li>
+<li>b) $\log 100+\log A=2+4=6$</li>
+<li>c) $\frac12(\log A+\log B)-\log 1000=\frac12(11)-3=5{,}5-3=2{,}5$</li>
+<li>d) $\log 1000+\log A-\frac14\log B=3+4-\frac74=7-1{,}75=5{,}25$</li>
+</ol>
+<p>L'exercici es resol sense saber quant valen $A$ i $B$: és tota la utilitat de les propietats.</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 4</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·18" data-resp="1" data-retro="Ajunta els dos logaritmes en un de sol: el producte dels arguments és una suma per diferència.">
+<div class="ex-enun"><p>Calcula $y=\log\left(4-\sqrt6\right)+\log\left(4+\sqrt6\right)$.</p></div>
+<div class="ex-sol"><p>$y=\log\left[(4-\sqrt6)(4+\sqrt6)\right]=\log(16-6)=\log 10=1$</p>
+<p>Aquí conflueixen dos blocs: la identitat de la suma per diferència del bloc D i la propietat del producte del bloc E.</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 5</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N2" data-codi="E·19">
+<div class="ex-enun"><p>Calcula, aplicant les propietats dels logaritmes:</p>
+<p>a) $y=\log\left(7-\sqrt{22}\right)+\log\left(7+\sqrt{22}\right)-3\log 3$<br>
+b) $y=\tfrac12\log\left(12-2\sqrt{11}\right)+\tfrac12\log\left(12+2\sqrt{11}\right)$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $\log(49-22)-\log 3^{3}=\log 27-\log 27=0$</li>
+<li>b) $\frac12\log\left[(12-2\sqrt{11})(12+2\sqrt{11})\right]=\frac12\log(144-44)=\frac12\log 100=\frac12\cdot 2=1$</li>
+</ol></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 5</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·20" data-resp="3" data-retro="Ajunta els dos logaritmes en un quocient i iguala els arguments.">
+<div class="ex-enun"><p>Resol $\log(5-x)-\log(4-x)=\log 2$.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Domini: $5-x&gt;0$ i $4-x&gt;0$, per tant $x&lt;4$.</li>
+<li>$\log\dfrac{5-x}{4-x}=\log 2$ → $\dfrac{5-x}{4-x}=2$ → $5-x=8-2x$ → $x=3$</li>
+<li>Comprovació: $3&lt;4$ ✓ i $\log 2-\log 1=\log 2$ ✓</li>
+</ol></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 6</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·21" data-resp="29" data-retro="El membre de la dreta és 1, que en base 10 equival a log 10. Després iguala els arguments.">
+<div class="ex-enun"><p>Resol $\log(x^{2}+2x-39)-\log(3x-1)=1$.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>$\log\dfrac{x^{2}+2x-39}{3x-1}=1$ → $\dfrac{x^{2}+2x-39}{3x-1}=10$</li>
+<li>$x^{2}+2x-39=30x-10$ → $x^{2}-28x-29=0$ → $x=\dfrac{28\pm 30}{2}$ → $x=29$ o $x=-1$</li>
+<li>$x=-1$ no val: $3(-1)-1=-4&lt;0$, i el logaritme d'un negatiu no existeix.</li>
+<li>Comprovació de $x=29$: $\dfrac{841+58-39}{86}=\dfrac{860}{86}=10$ ✓</li>
+</ol></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 6</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·22" data-bat="1">
+<div class="ex-enun"><p>Resol $2\log x-\log(x-16)=2$.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Domini: $x&gt;0$ i $x-16&gt;0$, per tant $x&gt;16$.</li>
+<li>$\log\dfrac{x^{2}}{x-16}=2$ → $\dfrac{x^{2}}{x-16}=100$ → $x^{2}-100x+1600=0$</li>
+<li>$x=\dfrac{100\pm\sqrt{10000-6400}}{2}=\dfrac{100\pm 60}{2}$ → $x=80$ o $x=20$</li>
+<li>Totes dues compleixen $x&gt;16$: hi ha <strong>dues solucions</strong>, $x=20$ i $x=80$.</li>
+</ol>
+<p>Comprovació de $x=20$: $\frac{400}{4}=100$ ✓ &nbsp; De $x=80$: $\frac{6400}{64}=100$ ✓</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 6</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·23" data-bat="1">
+<div class="ex-enun"><p>Resol $\log x^{2}-\log\left(x+\dfrac{11}{10}\right)=1$ i discuteix amb cura quines solucions són vàlides.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Domini: cal $x^{2}&gt;0$, és a dir $x\neq 0$; i $x+1{,}1&gt;0$, és a dir $x&gt;-1{,}1$.</li>
+<li>$\dfrac{x^{2}}{x+1{,}1}=10$ → $x^{2}=10x+11$ → $x^{2}-10x-11=0$ → $x=11$ o $x=-1$</li>
+<li>$x=11$: arguments $121$ i $12{,}1$, tots dos positius ✓</li>
+<li>$x=-1$: arguments $1$ i $0{,}1$, tots dos positius ✓ Comprovació: $\log 1-\log 0{,}1=0-(-1)=1$ ✓</li>
+</ol>
+<p>Les <strong>dues</strong> solucions són vàlides. És l'exemple que desmunta la regla mecànica «si surt negatiu, es descarta»: el que ha de ser positiu és l'argument del logaritme, no la incògnita.</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 6</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·24" data-bat="1">
+<div class="ex-enun"><p>Resol $3\log x-4\log 2=3\log 3$ i deixa el resultat en forma de radical simplificat.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>$\log x^{3}-\log 2^{4}=\log 3^{3}$ → $\log\dfrac{x^{3}}{16}=\log 27$</li>
+<li>$x^{3}=16\cdot 27=432$</li>
+<li>$x=\sqrt[3]{432}=\sqrt[3]{216\cdot 2}=6\sqrt[3]{2}\approx 7{,}56$</li>
+</ol>
+<p>Domini: $x&gt;0$, i la solució ho compleix.</p></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 6</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·25" data-bat="1">
+<div class="ex-enun"><p>Expressa en funció de $\log 2$:</p>
+<p>a) $\log 5$ &nbsp; b) $\log 125$ &nbsp; c) $\log\sqrt{0{,}08}$ &nbsp; d) $\log 0{,}002$</p></div>
+<div class="ex-sol"><p>La clau és escriure cada nombre fent servir només 2 i 10.</p>
+<ol class="passos">
+<li>a) $\log 5=\log\dfrac{10}{2}=1-\log 2$</li>
+<li>b) $\log 125=\log 5^{3}=3(1-\log 2)=3-3\log 2$</li>
+<li>c) $0{,}08=\dfrac{8}{100}=\dfrac{2^{3}}{10^{2}}$, per tant $\sqrt{0{,}08}=\dfrac{2^{3/2}}{10}$ i $\log\sqrt{0{,}08}=\dfrac32\log 2-1$</li>
+<li>d) $0{,}002=2\cdot 10^{-3}$ → $\log 0{,}002=\log 2-3$</li>
+</ol></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 7</div>
+</article>
+
+<article class="ex" data-bloc="E" data-niv="N3" data-codi="E·26" data-bat="1">
+<div class="ex-enun"><p>Aïlla $x$ en cada cas, amb totes les lletres positives:</p>
+<p>a) $\log x=3\log a+2\log b-\tfrac12\log c$<br>
+b) $\log x=\tfrac15\left(3\log a-2\log b\right)-7\left(\log c+4\log d\right)$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>a) $\log x=\log\dfrac{a^{3}b^{2}}{\sqrt{c}}$ → $x=\dfrac{a^{3}b^{2}}{\sqrt{c}}=\dfrac{a^{3}b^{2}\sqrt{c}}{c}$</li>
+<li>b) El primer parèntesi és $\log\dfrac{a^{3}}{b^{2}}$ i el segon, $\log(cd^{4})$:
+$$\log x=\tfrac15\log\frac{a^{3}}{b^{2}}-7\log(cd^{4})=\log\frac{\sqrt[5]{\dfrac{a^{3}}{b^{2}}}}{c^{7}d^{28}}$$
+per tant $x=\dfrac{\sqrt[5]{a^{3}/b^{2}}}{c^{7}d^{28}}$</li>
+</ol></div>
+<div class="origen">Material propi · <em>Exercicis_i_equacions_amb_logaritmes.pdf</em>, ex. 6</div>
+</article>
+
+<!-- ========== GLOBALITZADORS ========== -->
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·1">
+<div class="ex-enun"><p>Calcula i simplifica:</p>
+<p>$$\frac{\left(\dfrac{2}{3}\right)^{-2}\cdot\sqrt{18}}{3^{-1}\cdot\sqrt{2}}$$</p></div>
+<div class="ex-sol" data-tipus="Resolució">
+<p>Hi ha fraccions, potències d'exponent negatiu i radicals. L'ordre eficient és: primer les potències, després els radicals, i deixar la divisió per al final.</p>
+<ol class="passos">
+<li>$\left(\frac23\right)^{-2}=\left(\frac32\right)^{2}=\frac94$</li>
+<li>$\sqrt{18}=\sqrt{3^{2}\cdot 2}=3\sqrt2$</li>
+<li>Numerador: $\frac94\cdot 3\sqrt2=\frac{27\sqrt2}{4}$</li>
+<li>Denominador: $3^{-1}\sqrt2=\frac{\sqrt2}{3}$</li>
+<li>Divisió: $\dfrac{27\sqrt2}{4}\cdot\dfrac{3}{\sqrt2}=\dfrac{81\sqrt2}{4\sqrt2}=\dfrac{81}{4}$</li>
+</ol>
+<p>Resultat: $\dfrac{81}{4}$. Els radicals se cancel·len i el resultat és racional, cosa que convé comprovar sempre abans de racionalitzar innecessàriament.</p></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·2" data-resp="6" data-retro="Tracta els tres sumands per separat: el primer és una suma per diferència.">
+<div class="ex-enun"><p>Calcula $(\sqrt5+2)(\sqrt5-2)+\left(\dfrac12\right)^{-3}-\sqrt[3]{27}$</p></div>
+<div class="ex-sol"><p>$(5-4)+8-3=1+8-3=6$</p></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·3" data-resp="7/3" data-retro="Divideix cada sumand del numerador per √3 per separat.">
+<div class="ex-enun"><p>Calcula $\dfrac{\left(\sqrt3\right)^{-1}+\sqrt{12}}{\sqrt3}$</p></div>
+<div class="ex-sol"><p>$\left(\sqrt3\right)^{-1}=\dfrac{1}{\sqrt3}$ i $\sqrt{12}=2\sqrt3$.</p>
+$$\frac{\frac{1}{\sqrt3}}{\sqrt3}+\frac{2\sqrt3}{\sqrt3}=\frac13+2=\frac73$$</div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·4">
+<div class="ex-enun"><p>Racionalitza i simplifica: $\dfrac{2}{1-\sqrt3}-\dfrac{1}{2\sqrt3}$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Primer terme, pel conjugat $1+\sqrt3$: $\dfrac{2(1+\sqrt3)}{1-3}=\dfrac{2(1+\sqrt3)}{-2}=-1-\sqrt3$</li>
+<li>Segon terme: $\dfrac{1}{2\sqrt3}=\dfrac{\sqrt3}{6}$</li>
+<li>Resta: $-1-\sqrt3-\dfrac{\sqrt3}{6}=-1-\dfrac{6\sqrt3+\sqrt3}{6}=-1-\dfrac{7\sqrt3}{6}=\dfrac{-6-7\sqrt3}{6}$</li>
+</ol></div>
+<div class="origen">Font: <em>Exercicis_control_Nadal.pdf</em>, ex. 2</div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·5">
+<div class="ex-enun"><p>Calcula i racionalitza el resultat:</p>
+<p>$$\frac{7\sqrt{450}-9\sqrt{288}+\sqrt{128}}{0{,}6^{-2}\cdot\sqrt{48}}$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Numerador (vegeu D·6): $5\sqrt2$</li>
+<li>$0{,}6^{-2}=\left(\frac35\right)^{-2}=\left(\frac53\right)^{2}=\frac{25}{9}$ i $\sqrt{48}=4\sqrt3$, per tant el denominador és $\dfrac{100\sqrt3}{9}$</li>
+<li>$\dfrac{5\sqrt2\cdot 9}{100\sqrt3}=\dfrac{45\sqrt2}{100\sqrt3}=\dfrac{9\sqrt2}{20\sqrt3}=\dfrac{9\sqrt6}{60}=\dfrac{3\sqrt6}{20}$</li>
+</ol>
+<p><strong>Nota.</strong> La fitxa original dona com a solució $\frac59$. Aquesta solució no es correspon amb l'enunciat tal com hi apareix escrit; el resultat correcte és $\frac{3\sqrt6}{20}\approx 0{,}367$.</p></div>
+<div class="origen">Font: <em>Exercicis_control_Nadal.pdf</em>, ex. 3 · solució corregida</div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·6" data-resp="-427/24|−427/24" data-retro="Respecta la jerarquia: primer els parèntesis, i dins del darrer, la divisió abans de la suma.">
+<div class="ex-enun"><p>Efectua i simplifica:</p>
+<p>$$\left(\frac13+\frac12\right)\cdot\left(\frac12-\frac14\right)+5-3\cdot\left(4:\frac35+1\right)$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>$\left(\frac13+\frac12\right)=\frac56$ i $\left(\frac12-\frac14\right)=\frac14$ → producte $\frac{5}{24}$</li>
+<li>$4:\frac35=\frac{20}{3}$; $\frac{20}{3}+1=\frac{23}{3}$; $3\cdot\frac{23}{3}=23$</li>
+<li>$\frac{5}{24}+5-23=\frac{5}{24}-18=\frac{5-432}{24}=-\frac{427}{24}$</li>
+</ol></div>
+<div class="origen">Font: <em>Exercicis_control_Nadal.pdf</em>, ex. 5a</div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·7" data-resp="64/25" data-retro="Compte amb (5/3)⁴ : (3/5)⁻²  — les dues fraccions són inverses l'una de l'altra.">
+<div class="ex-enun"><p>Efectua i simplifica:</p>
+<p>$$\frac{\left[\dfrac23\cdot\left(\dfrac{-1}{4}\right)^{-1}\right]^{2}}{\left(\dfrac53\right)^{4}:\left(\dfrac35\right)^{-2}}$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Numerador: $\left(\frac{-1}{4}\right)^{-1}=-4$; $\frac23\cdot(-4)=-\frac83$; elevat al quadrat, $\frac{64}{9}$</li>
+<li>Denominador: $\left(\frac35\right)^{-2}=\left(\frac53\right)^{2}=\frac{25}{9}$; per tant $\frac{625}{81}:\frac{25}{9}=\frac{625}{81}\cdot\frac{9}{25}=\frac{25}{9}$</li>
+<li>Quocient: $\dfrac{64/9}{25/9}=\dfrac{64}{25}$</li>
+</ol>
+<p><strong>Nota.</strong> La fitxa original dona $\frac{64}{24}$; el denominador correcte és 25.</p></div>
+<div class="origen">Font: <em>Exercicis_control_Nadal.pdf</em>, ex. 5c · solució corregida</div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·8" data-resp="-50/3|−50/3" data-retro="Escriu 16, 27 i 0,2 com a potències de base 2, 3 i 5 respectivament.">
+<div class="ex-enun"><p>Calcula, deixant el resultat com a fracció irreductible:</p>
+<p>$$16^{\frac34}+27^{-\frac13}-(0{,}2)^{-2}$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>$16^{\frac34}=\left(2^{4}\right)^{\frac34}=2^{3}=8$</li>
+<li>$27^{-\frac13}=\left(3^{3}\right)^{-\frac13}=3^{-1}=\frac13$</li>
+<li>$(0{,}2)^{-2}=\left(\frac15\right)^{-2}=5^{2}=25$</li>
+<li>$8+\frac13-25=-17+\frac13=\dfrac{-51+1}{3}=-\dfrac{50}{3}$</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="G" data-codi="G·9" data-bat="1">
+<div class="ex-enun"><p>Simplifica, amb $a&gt;0$, i expressa el resultat com un únic radical:</p>
+<p>$$\frac{\sqrt{a^{3}}\cdot\sqrt[4]{a}}{\sqrt[6]{a}\cdot a}$$</p></div>
+<div class="ex-sol"><ol class="passos">
+<li>Numerador: $a^{\frac32}\cdot a^{\frac14}=a^{\frac74}$</li>
+<li>Denominador: $a^{\frac16}\cdot a=a^{\frac76}$</li>
+<li>Quocient: $a^{\frac74-\frac76}=a^{\frac{21-14}{12}}=a^{\frac{7}{12}}=\sqrt[12]{a^{7}}$</li>
+</ol>
+<p>L'índex 12 apareix perquè és el mínim comú múltiple de 4 i 6.</p></div>
+</article>
+
+<!-- ========== COMPETENCIALS ========== -->
+<article class="ex" data-bloc="G" data-niv="C" data-codi="COMP·1" data-ods="ODS 10 · Reducció de les desigualtats">
+<div class="ex-enun"><p><strong>Sense comissions?</strong></p>
+<p>Un banc anuncia un «compte sense comissions». A la lletra petita del contracte hi diu: manteniment 0 €/mes si la nòmina domiciliada és de 700 € o més; en cas contrari, 3,50 €/mes. A més, 0,60 € per cada transferència immediata a partir de la cinquena del mes, la cinquena inclosa.</p>
+<p>La Nadia cobra 640 € al mes i fa 9 transferències immediates cada mes.</p>
+<p>a) Quant paga en comissions en un any?<br>
+b) Quin percentatge representa sobre els seus ingressos anuals?<br>
+c) Quantes transferències mensuals podria fer com a màxim per no superar els 60 € anuals de comissions?<br>
+d) L'anunci «compte sense comissions» és fals? Redacta en dues línies com hauria d'estar formulat perquè fos informatiu.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> Manteniment: $3{,}50\cdot 12=42$ €. Transferències de pagament: $9-4=5$ al mes → $5\cdot 0{,}60=3$ €/mes → $36$ €/any. <strong>Total: 78 €/any.</strong></li>
+<li><strong>b)</strong> Ingressos anuals: $640\cdot 12=7680$ €. $\dfrac{78}{7680}=0{,}010156\ldots\approx 1{,}02\,\%$</li>
+<li><strong>c)</strong> Els 42 € de manteniment són fixos; queden $60-42=18$ €/any $=1{,}50$ €/mes per a transferències. $1{,}50:0{,}60=2{,}5$ → com a màxim 2 transferències de pagament, és a dir, <strong>6 transferències al mes</strong> (4 gratuïtes + 2).</li>
+<li><strong>d)</strong> No és aritmèticament fals, però només és cert per a un perfil de client concret. Una formulació informativa seria: «Sense comissió de manteniment amb nòmina de 700 €/mes o superior. Consulta les comissions per transferència immediata.» El problema de l'anunci original no és el càlcul, és que amaga la condició de la qual depèn tot.</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="C" data-codi="COMP·2" data-ods="ODS 4 i 9 · Educació, ciència i innovació">
+<div class="ex-enun"><p><strong>Fins a l'infinit i més enllà</strong></p>
+<p>El diàmetre de la Via Làctia és d'uns $1{,}0\cdot 10^{5}$ anys llum, i un any llum equival a $9{,}461\cdot 10^{12}$ km.</p>
+<p>a) Expressa el diàmetre de la galàxia en quilòmetres, en notació científica.<br>
+b) Una sonda viatja a $6{,}0\cdot 10^{4}$ km/h. Quants anys trigaria a travessar-la? (Considera un any de 8766 hores.)<br>
+c) Compara aquest temps amb l'edat de la Terra, $4{,}5\cdot 10^{9}$ anys. Són del mateix ordre de magnitud?</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> $1{,}0\cdot 10^{5}\cdot 9{,}461\cdot 10^{12}=9{,}461\cdot 10^{17}$ km</li>
+<li><strong>b)</strong> $t=\dfrac{9{,}461\cdot 10^{17}}{6{,}0\cdot 10^{4}}=1{,}5768\cdot 10^{13}$ h. En anys: $\dfrac{1{,}5768\cdot 10^{13}}{8766}\approx 1{,}80\cdot 10^{9}$ anys, uns 1800 milions d'anys.</li>
+<li><strong>c)</strong> Tots dos són de l'ordre de $10^{9}$: <strong>sí</strong>, mateix ordre de magnitud. La sonda trigaria aproximadament un 40 % de l'edat de la Terra a travessar la galàxia. Aquesta comparació és més informativa que les xifres per separat, i és exactament per això que serveix la notació científica.</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="C" data-codi="COMP·3" data-ods="ODS 12 · Consum responsable · FAKE NEWS">
+<div class="ex-enun"><p><strong>Fake news: «Fins a un 70 % de descompte»</strong></p>
+<p>Una botiga anuncia rebaixes «fins a un 70 % de descompte». Un abric marcat a 180 € apareix rebaixat a 126 €. La setmana següent s'hi aplica «un 20 % addicional sobre el preu ja rebaixat».</p>
+<p>a) Quin percentatge de descompte s'havia aplicat la primera setmana?<br>
+b) Quin és el preu final de l'abric?<br>
+c) Quin és el descompte acumulat real respecte del preu inicial?<br>
+d) Un cartell diu «50 % + 20 % = 70 % de descompte». Comprova si és cert i explica per què.<br>
+e) Escriu un titular que descrigui l'oferta sense enganyar.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> $\dfrac{126}{180}=0{,}70$ → índex 0,70 → descompte del <strong>30 %</strong>.</li>
+<li><strong>b)</strong> $126\cdot 0{,}80=100{,}80$ €</li>
+<li><strong>c)</strong> $\dfrac{100{,}80}{180}=0{,}56$ → el preu final és el 56 % de l'inicial → descompte acumulat del <strong>44 %</strong>, no del 50 %.</li>
+<li><strong>d)</strong> Fals. $1{,}00\cdot 0{,}50\cdot 0{,}80=0{,}40$ → el descompte seria del 60 %, no del 70 %. Els percentatges successius es multipliquen com a índexs; no se sumen, perquè el segon s'aplica sobre una base ja reduïda.</li>
+<li><strong>e)</strong> Per exemple: «Abric de 180 € a 100,80 €: un 44 % menys.» La xifra «fins a un 70 %» no és falsa si algun article la té, però no descriu el que paga la majoria de clients.</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="C" data-codi="COMP·4" data-ods="ODS 12 · Festes populars i consum">
+<div class="ex-enun"><p><strong>Carnaval o Halloween</strong></p>
+<p>En un institut de 720 alumnes es fa una enquesta a una mostra de 90. Els resultats: 54 prefereixen el Carnaval, 27 Halloween i 9 no prefereixen cap dels dos.</p>
+<p>a) Calcula els percentatges de la mostra.<br>
+b) Estima quants alumnes de tot l'institut prefereixen cada opció.<br>
+c) El diari escolar titula: «El doble d'alumnes prefereix el Carnaval». És correcte?<br>
+d) Un altre titular diu: «El 60 % de l'institut prefereix el Carnaval». Quina informació caldria afegir perquè fos rigorós?</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> Carnaval $\frac{54}{90}=60\,\%$ · Halloween $30\,\%$ · Cap $10\,\%$</li>
+<li><strong>b)</strong> $720\cdot 0{,}60=432$ · $720\cdot 0{,}30=216$ · $720\cdot 0{,}10=72$</li>
+<li><strong>c)</strong> És correcte <em>només</em> comparat amb Halloween ($60\,\%$ és el doble de $30\,\%$). No és correcte si es llegeix com «el doble de la resta d'alumnes», perquè la resta són el 40 %.</li>
+<li><strong>d)</strong> Caldria dir que és una <strong>estimació</strong> feta sobre una mostra de 90 alumnes, indicar com s'han triat (a l'atzar o no) i donar un marge d'error. Una mostra no aleatòria — per exemple, preguntar només a 2n d'ESO — invalida l'extrapolació encara que l'aritmètica sigui perfecta.</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="C" data-codi="COMP·5" data-ods="ODS 12 · Consum responsable">
+<div class="ex-enun"><p><strong>Escapada low cost</strong></p>
+<p>Un vol s'anuncia «des de 89 €». En reservar-lo s'hi afegeixen: equipatge de mà 22 €, selecció de seient 9 € i un recàrrec del 2,5 % per pagar amb targeta, aplicat sobre el total anterior.</p>
+<p>a) Calcula el preu final.<br>
+b) Quin percentatge d'increment representa respecte de la tarifa anunciada?<br>
+c) Un comparador ofereix un altre vol a 105 € amb tot inclòs. Quin surt més barat i per quina diferència?<br>
+d) Per què el preu «des de 89 €» no és fals però tampoc útil per decidir?</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> $89+22+9=120$ €; $120\cdot 1{,}025=123$ €</li>
+<li><strong>b)</strong> $\dfrac{123}{89}=1{,}3820\ldots$ → un increment del <strong>38,2 %</strong></li>
+<li><strong>c)</strong> El de 105 €, que surt <strong>18 € més barat</strong>.</li>
+<li><strong>d)</strong> Perquè descriu un producte que gairebé ningú no compra: el vol sense equipatge, sense seient assignat i pagat amb un mitjà sense recàrrec. Per comparar ofertes cal el preu final en condicions equivalents; és exactament el que fa l'apartat c).</li>
+</ol></div>
+</article>
+
+<article class="ex" data-bloc="G" data-niv="C" data-codi="COMP·6" data-ods="ODS 3 i 6 · Salut i aigua · FAKE NEWS">
+<div class="ex-enun"><p><strong>Fake news: la mitjana que amaga</strong></p>
+<p>Un titular afirma: «El consum mitjà d'aigua al municipi és de 128 L per habitant i dia, un 4 % per sota de la mitjana catalana». La xifra s'ha obtingut dividint <em>tot</em> el volum facturat — incloent-hi el reg de parcs i el consum industrial — entre el nombre d'habitants.</p>
+<p>a) Comprova la xifra sabent que es faciliten 3 456 000 L diaris i que hi ha 27 000 habitants.<br>
+b) Si el 22 % d'aquest volum correspon a indústria i reg, quin és el consum <strong>domèstic</strong> per habitant i dia?<br>
+c) La mitjana catalana de consum domèstic és de 116 L per habitant i dia. En quin percentatge està el municipi per sobre o per sota?<br>
+d) El titular és aritmèticament correcte. Explica per què, tot i així, indueix a error.</p></div>
+<div class="ex-sol"><ol class="passos">
+<li><strong>a)</strong> $\dfrac{3\,456\,000}{27\,000}=128$ L/habitant/dia ✓</li>
+<li><strong>b)</strong> $128\cdot 0{,}78=99{,}84\approx 99{,}8$ L</li>
+<li><strong>c)</strong> $\dfrac{99{,}84}{116}=0{,}8607$ → un <strong>13,9 % per sota</strong>, molt més que el 4 % del titular.</li>
+<li><strong>d)</strong> Perquè compara dues magnituds que no són la mateixa cosa: un consum total per càpita amb una mitjana de consum domèstic. La divisió està ben feta, però el numerador i el denominador no es corresponen. És l'error més habitual amb mitjanes: el càlcul és correcte i la conclusió no.</li>
+</ol></div>
+</article>
+
+</div>
+<section class="apendix" id="apendix">
+  <h2>Solucions</h2>
+  <div id="apendix-cos"></div>
+</section>
+
+<footer style="background:#16233b; color:#b9c6da; padding:34px 0 44px; font-size:var(--t-sm)">
+  <div class="centre">
+    <p style="margin-bottom:22px; max-width:62ch">Unitat 1 · <strong style="color:#fff">Nombres Reals ℝ</strong> · Matemàtiques 4t d'ESO. Ajustada al currículum de l'educació secundària obligatòria de Catalunya.</p>
+
+    <p style="color:#fff; font-weight:600; margin-bottom:8px">Fonts</p>
+    <ul style="margin:0 0 22px; padding-left:1.15em; line-height:1.75">
+      <li>Material propi</li>
+      <li><a style="color:#8fb4e8" href="https://xtec.gencat.cat/ca/curriculum/eso/curriculum-175-2022/">Currículum de l'educació secundària obligatòria · Decret 175/2022</a>, XTEC, Departament d'Educació</li>
+      <li><em>Matemàtiques 4t ESO</em>, projecte Construint Mons, Santillana — seqüència de sabers de les unitats 1 i 2</li>
+      <li><a style="color:#8fb4e8" href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/">NASA Planetary Fact Sheet</a> — masses del Sol i de la Terra (exercici C·8)</li>
+    </ul>
+
+    <p style="margin-bottom:16px">Aquest fitxer carrega les fórmules (KaTeX) i la tipografia des d'un CDN: cal connexió a internet el primer cop que s'obre en un dispositiu.</p>
+    <p><a href="https://elenaas-math.github.io/">Autoria:</a> © 2026 by <a href="https://elenaas-math.github.io/">Elena Álvarez Spagnolo</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"></p>
+  </div>
+</footer>
+</main>
+</div>
+
+<dialog class="modal" id="modal">
+  <div class="m-cap"><h3 id="modal-titol"></h3><button type="button" class="tanca" id="modal-x" aria-label="Tancar">&times;</button></div>
+  <div class="m-cos" id="modal-cos"></div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ---------- índex ---------- */
+var BLOCS = [
+  {id:'A', lletra:'A', titol:'Nombres reals', subs:[
+    ['A1','Nombres racionals'],['A2','Nombres irracionals'],['A3','El conjunt ℝ i la recta real'],
+    ['A4','Aproximació'],['A5','Errors d\u2019aproximació'],['A6','Intervals i entorns']]},
+  {id:'B', lletra:'B', titol:'Proporcionalitat i percentatges', subs:[
+    ['B1','Proporcionalitat directa i inversa'],['B2','Percentatges i interès']]},
+  {id:'C', lletra:'C', titol:'Potències i notació científica', subs:[
+    ['C1','Potències d\u2019exponent enter'],['C2','Notació científica']]},
+  {id:'D', lletra:'D', titol:'Radicals', subs:[
+    ['D1','Arrel n-èsima i exponent fraccionari'],['D2','Operacions amb radicals'],['D3','Racionalització']]},
+  {id:'E', lletra:'E', titol:'Logaritmes', subs:[
+    ['E1','Definició i propietats'],['E2','Equacions logarítmiques']]},
+  {id:'G', lletra:'∑', titol:'Globalitzadores i competencials', subs:[['G1','Síntesi de la unitat']]}
+];
+
+var nav = document.getElementById('index-nav');
+var salt = document.getElementById('salt');
+BLOCS.forEach(function(b){
+  var li = document.createElement('li');
+  li.className = 'bloc-nav';
+  var a = document.createElement('a');
+  a.href = '#bloc-' + b.id;
+  a.innerHTML = '<span class="lletra">' + b.lletra + '</span><span>' + b.titol + '</span>';
+  li.appendChild(a);
+  var ul = document.createElement('ul');
+  ul.className = 'sub';
+  b.subs.forEach(function(s){
+    var sli = document.createElement('li');
+    sli.innerHTML = '<a href="#' + s[0] + '">' + s[0].charAt(0) + '.' + s[0].slice(1) + ' &nbsp;' + s[1] + '</a>';
+    ul.appendChild(sli);
+  });
+  li.appendChild(ul);
+  nav.appendChild(li);
+  var op = document.createElement('option');
+  op.value = '#bloc-' + b.id; op.textContent = b.lletra + ' · ' + b.titol;
+  salt.appendChild(op);
+});
+salt.addEventListener('change', function(){ location.hash = salt.value; });
+
+/* ---------- activitats ---------- */
+var NOMS = {N1:'N1 Bàsic', N2:'N2 Consolidació', N3:'N3 Ampliació', G:'G Globalitzador', C:'C Competencial'};
+
+function normalitza(s){
+  return String(s).toLowerCase().trim()
+    .replace(/\s+/g,'')
+    .replace(/\u2212/g,'-')
+    .replace(/\u00b7|\u22c5|\*/g,'\u00b7')
+    .replace(/,/g,'.')
+    .replace(/[€%]/g,'')
+    .replace(/²/g,'^2').replace(/³/g,'^3')
+    .replace(/^\+/,'');
+}
+
+var totsEx = Array.prototype.slice.call(document.querySelectorAll('article.ex'));
+
+totsEx.forEach(function(ex){
+  var bloc = ex.getAttribute('data-bloc');
+  var niv  = ex.getAttribute('data-niv');
+  var codi = ex.getAttribute('data-codi');
+  var enun = ex.querySelector('.ex-enun');
+  var sol  = ex.querySelector('.ex-sol');
+  var org  = ex.querySelector('.origen');
+
+  var top = document.createElement('div'); top.className = 'ex-top';
+  var cCodi = document.createElement('div'); cCodi.className = 'ex-codi';
+  cCodi.innerHTML = '<span class="num">' + codi + '</span><span class="niv niv-' + niv + '">' + NOMS[niv] + '</span>' +
+    (ex.getAttribute('data-bat') ? '<span class="niv" style="background:#9a5b00">Batxillerat</span>' : '');
+  var cCos = document.createElement('div'); cCos.className = 'ex-cos';
+  cCos.appendChild(enun);
+
+  if (ex.getAttribute('data-ods')) {
+    var ods = document.createElement('div'); ods.className = 'origen';
+    ods.style.marginTop = '10px'; ods.textContent = ex.getAttribute('data-ods');
+    cCos.appendChild(ods);
+  }
+
+  var eines = document.createElement('div'); eines.className = 'ex-eines';
+  var resp = ex.getAttribute('data-resp');
+  var retro = document.createElement('div'); retro.className = 'retro';
+
+  if (resp) {
+    var inp = document.createElement('input');
+    inp.type = 'text'; inp.placeholder = 'La teva resposta';
+    inp.setAttribute('aria-label', 'Resposta de l\u2019exercici ' + codi);
+    var bComp = document.createElement('button');
+    bComp.type = 'button'; bComp.textContent = 'Comprovar';
+    function comprova(){
+      var v = normalitza(inp.value);
+      if (!v) return;
+      var ok = resp.split('|').some(function(r){ return normalitza(r) === v; });
+      retro.className = 'retro ' + (ok ? 'ok' : 'ko');
+      retro.textContent = ok ? 'Correcte.' : (ex.getAttribute('data-retro') || 'Encara no hi és. Torna-hi.');
+    }
+    bComp.addEventListener('click', comprova);
+    inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') comprova(); });
+    eines.appendChild(inp); eines.appendChild(bComp);
+  }
+
+  if (sol) {
+    var bSol = document.createElement('button');
+    bSol.type = 'button'; bSol.className = 'sec';
+    bSol.textContent = sol.getAttribute('data-tipus') === 'Resolució' ? 'Veure la resolució' : 'Veure la solució';
+    bSol.setAttribute('aria-expanded','false');
+    bSol.addEventListener('click', function(){
+      var obert = sol.classList.toggle('mostra');
+      bSol.setAttribute('aria-expanded', obert ? 'true' : 'false');
+      bSol.textContent = (obert ? 'Amagar ' : 'Veure ') + (sol.getAttribute('data-tipus') === 'Resolució' ? 'la resolució' : 'la solució');
+    });
+    eines.appendChild(bSol);
+    var etq = document.createElement('div'); etq.className = 'etq';
+    etq.textContent = sol.getAttribute('data-tipus') === 'Resolució' ? 'Resolució pas a pas' : 'Solució';
+    sol.insertBefore(etq, sol.firstChild);
+  }
+
+  cCos.appendChild(eines);
+  cCos.appendChild(retro);
+  top.appendChild(cCodi); top.appendChild(cCos);
+  ex.innerHTML = '';
+  ex.appendChild(top);
+  if (sol) ex.appendChild(sol);
+  if (org) { org.style.padding = '0 18px 14px'; ex.appendChild(org); }
+
+  var dest = document.getElementById('ex-' + bloc);
+  if (dest) dest.appendChild(ex);
+});
+
+document.getElementById('compta-ex').textContent = totsEx.length + ' activitats';
+
+/* ---------- filtres ---------- */
+Array.prototype.forEach.call(document.querySelectorAll('.filtres'), function(cont){
+  var bloc = cont.getAttribute('data-bloc');
+  var exs = Array.prototype.slice.call(document.querySelectorAll('#ex-' + bloc + ' > .ex'));
+  var nivells = [];
+  exs.forEach(function(e){ var n = e.getAttribute('data-niv'); if (nivells.indexOf(n) < 0) nivells.push(n); });
+  var opcions = [['TOT','Totes']].concat(nivells.map(function(n){ return [n, NOMS[n]]; }));
+  opcions.forEach(function(o, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = o[1];
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', function(){
+      Array.prototype.forEach.call(cont.children, function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      exs.forEach(function(e){
+        e.classList.toggle('amaga', o[0] !== 'TOT' && e.getAttribute('data-niv') !== o[0]);
+      });
+    });
+    cont.appendChild(b);
+  });
+});
+
+/* ---------- botons globals ---------- */
+var totSol = false;
+document.getElementById('btn-solucions').addEventListener('click', function(){
+  totSol = !totSol;
+  Array.prototype.forEach.call(document.querySelectorAll('.ex-sol'), function(s){ s.classList.toggle('mostra', totSol); });
+  this.textContent = totSol ? 'Amagar totes les solucions' : 'Mostrar totes les solucions';
+});
+var totDes = false;
+document.getElementById('btn-desplega').addEventListener('click', function(){
+  totDes = !totDes;
+  Array.prototype.forEach.call(document.querySelectorAll('details.desplega'), function(d){ d.open = totDes; });
+  this.textContent = totDes ? 'Plegar demostracions' : 'Desplegar demostracions';
+});
+document.getElementById('btn-print').addEventListener('click', function(){ window.print(); });
+
+/* ---------- recta real interactiva ---------- */
+(function(){
+  var svg = document.getElementById('rc-dibuix');
+  if (!svg) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var MIN = -6, MAX = 6, X0 = 92, X1 = 738;
+  function px(v){ return X0 + (v - MIN) * (X1 - X0) / (MAX - MIN); }
+  function nf(v){ return String(v).replace('.', ','); }
+  function fmt(iv){
+    if (!iv) return '∅';
+    if (iv.length) return iv.map(fmt).join(' ∪ ');
+    return (iv.ai ? '[' : '(') + nf(iv.a) + ', ' + nf(iv.b) + (iv.bi ? ']' : ')');
+  }
+  function llegir(p){
+    var a = parseFloat(document.getElementById(p + '-a').value);
+    var b = parseFloat(document.getElementById(p + '-b').value);
+    if (isNaN(a) || isNaN(b)) return null;
+    return { a:a, b:b,
+      ai: document.getElementById(p + '-e').value === '[',
+      bi: document.getElementById(p + '-d').value === ']' };
+  }
+  function interseccio(P, Q){
+    var a, ai, b, bi;
+    if (P.a > Q.a) { a = P.a; ai = P.ai; } else if (Q.a > P.a) { a = Q.a; ai = Q.ai; } else { a = P.a; ai = P.ai && Q.ai; }
+    if (P.b < Q.b) { b = P.b; bi = P.bi; } else if (Q.b < P.b) { b = Q.b; bi = Q.bi; } else { b = P.b; bi = P.bi && Q.bi; }
+    if (a > b) return null;
+    if (a === b && !(ai && bi)) return null;
+    return { a:a, ai:ai, b:b, bi:bi };
+  }
+  function separats(P, Q){ return P.b < Q.a || (P.b === Q.a && !P.bi && !Q.ai); }
+  function unio(P, Q){
+    if (separats(P, Q)) return [P, Q];
+    if (separats(Q, P)) return [Q, P];
+    var a, ai, b, bi;
+    if (P.a < Q.a) { a = P.a; ai = P.ai; } else if (Q.a < P.a) { a = Q.a; ai = Q.ai; } else { a = P.a; ai = P.ai || Q.ai; }
+    if (P.b > Q.b) { b = P.b; bi = P.bi; } else if (Q.b > P.b) { b = Q.b; bi = Q.bi; } else { b = P.b; bi = P.bi || Q.bi; }
+    return { a:a, ai:ai, b:b, bi:bi };
+  }
+  function el(t, at){ var e = document.createElementNS(NS, t); for (var k in at) e.setAttribute(k, at[k]); return e; }
+  function fila(y, etiqueta, iv, color){
+    svg.appendChild(el('line', {x1:X0-8, y1:y, x2:X1+8, y2:y, stroke:'#d5dbe4', 'stroke-width':2}));
+    var t = el('text', {x:8, y:y+6, 'font-family':'IBM Plex Sans', 'font-size':16, 'font-weight':600, fill:'#16233b'});
+    t.textContent = etiqueta; svg.appendChild(t);
+    if (!iv) {
+      var v = el('text', {x:X0, y:y-9, 'font-family':'IBM Plex Sans', 'font-size':14, fill:'#a8302a'});
+      v.textContent = 'conjunt buit'; svg.appendChild(v); return;
+    }
+    (iv.length ? iv : [iv]).forEach(function(p){
+      var xa = px(Math.max(p.a, MIN)), xb = px(Math.min(p.b, MAX));
+      svg.appendChild(el('line', {x1:xa, y1:y, x2:xb, y2:y, stroke:color, 'stroke-width':7, 'stroke-linecap':'butt'}));
+      [[xa, p.ai], [xb, p.bi]].forEach(function(c){
+        svg.appendChild(el('circle', {cx:c[0], cy:y, r:6.5, fill:c[1] ? color : '#ffffff', stroke:color, 'stroke-width':2.5}));
+      });
+    });
+  }
+  function dibuixa(){
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var A = llegir('ra'), B = llegir('rb');
+    var avis = document.getElementById('rc-union');
+    if (!A || !B || A.a > A.b || B.a > B.b) {
+      avis.textContent = '—'; document.getElementById('rc-inter').textContent = '—';
+      var w = el('text', {x:X0, y:120, 'font-family':'IBM Plex Sans', 'font-size':16, fill:'#a8302a'});
+      w.textContent = 'L\u2019extrem esquerre ha de ser menor o igual que el dret.';
+      svg.appendChild(w); return;
+    }
+    // eix
+    svg.appendChild(el('line', {x1:X0-18, y1:34, x2:X1+18, y2:34, stroke:'#16233b', 'stroke-width':2}));
+    for (var v = MIN; v <= MAX; v++) {
+      svg.appendChild(el('line', {x1:px(v), y1:29, x2:px(v), y2:39, stroke:'#16233b', 'stroke-width':1.5}));
+      var lb = el('text', {x:px(v), y:20, 'text-anchor':'middle', 'font-family':'IBM Plex Sans', 'font-size':13, fill:'#56607a'});
+      lb.textContent = v < 0 ? '\u2212' + Math.abs(v) : v; svg.appendChild(lb);
+    }
+    fila(78,  'A',      A, '#12508f');
+    fila(122, 'B',      B, '#97245f');
+    fila(176, 'A ∪ B',  unio(A, B), '#146b4a');
+    fila(220, 'A ∩ B',  interseccio(A, B), '#9a5b00');
+    document.getElementById('rc-union').textContent = fmt(unio(A, B));
+    document.getElementById('rc-inter').textContent = fmt(interseccio(A, B));
+  }
+  ['ra-a','ra-b','rb-a','rb-b','ra-e','ra-d','rb-e','rb-d'].forEach(function(id){
+    var e = document.getElementById(id);
+    e.addEventListener('input', dibuixa); e.addEventListener('change', dibuixa);
+  });
+  dibuixa();
+})();
+
+/* ---------- modal per a definicions ---------- */
+var modal = document.getElementById('modal');
+document.getElementById('modal-x').addEventListener('click', function(){ modal.close(); });
+Array.prototype.forEach.call(document.querySelectorAll('.definicio'), function(d, i){
+  d.id = d.id || ('def-' + i);
+});
+
+/* ---------- KaTeX ---------- */
+function renderitza(){
+  if (!window.renderMathInElement) return;
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left:'$$', right:'$$', display:true},
+      {left:'$',  right:'$',  display:false}
+    ],
+    throwOnError: false,
+    ignoredClasses: ['origen']
+  });
+  construeixApendix();
+}
+
+/* ---------- apèndix de solucions per a la impressió ---------- */
+function construeixApendix(){
+  var cos = document.getElementById('apendix-cos');
+  cos.innerHTML = '';
+  Array.prototype.forEach.call(document.querySelectorAll('#ex-A .ex, #ex-B .ex, #ex-C .ex, #ex-D .ex, #ex-E .ex, #ex-G .ex'), function(ex){
+    var sol = ex.querySelector('.ex-sol');
+    if (!sol) return;
+    var d = document.createElement('div');
+    d.className = 'sol-item';
+    var h = document.createElement('b');
+    h.textContent = ex.getAttribute('data-codi') + ' · ';
+    d.appendChild(h);
+    var c = sol.cloneNode(true);
+    c.classList.remove('ex-sol');
+    var e = c.querySelector('.etq');
+    if (e) e.remove();
+    c.style.display = 'inline';
+    d.appendChild(c);
+    cos.appendChild(d);
+  });
+}
+
+if (document.readyState === 'complete') renderitza();
+else window.addEventListener('load', renderitza);
+
+})();
+</script>
+</body>
+</html>
