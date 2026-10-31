@@ -299,6 +299,24 @@ dialog.modal button.tanca{
   a{color:#000; text-decoration:none}
 }
 </style>
+<style id="eas-llicencia-css">
+/* Peu de llicència unificat i declaració d'ús d'IA (mateix model que la web principal) */
+.eas-llicencia{margin:0;line-height:1.7}
+.eas-llicencia img{width:1em;height:1em;margin-left:.2em;vertical-align:-.15em}
+.eas-autoria{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.eas-autoria:hover{color:#EA5B0C}
+.eas-autoria:focus-visible,.eas-tanca:focus-visible{outline:3px solid #EA5B0C;outline-offset:2px;border-radius:4px}
+.eas-ia{margin:auto;max-width:min(34rem,calc(100% - 2rem));padding:1.4rem 1.6rem;background:#FAFAF7;color:#1A1814;border:2px solid #EA5B0C;border-radius:16px;box-shadow:0 20px 50px rgba(20,18,15,.35);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1rem;line-height:1.6;text-align:left}
+.eas-ia::backdrop{background:rgba(20,18,15,.55)}
+.eas-ia p{margin:0 0 1rem;max-width:none;color:#1A1814}
+.eas-ia strong{color:#AC3E00}
+.eas-tanca{font:500 .85rem/1 ui-monospace,Consolas,monospace;background:#EA5B0C;color:#14120F;border:0;border-radius:999px;padding:.6rem 1.1rem;cursor:pointer}
+.eas-tanca:hover{background:#FF6E1A}
+.eas-ia.eas-fb{position:fixed;inset:0;height:fit-content;z-index:1000}
+@media print{.eas-ia{display:none!important}}
+footer .eas-llicencia img{filter:invert(88%)}
+footer .eas-autoria{color:#fff}
+</style>
 </head>
 <body>
 <div class="barra-mobil">
@@ -1958,7 +1976,11 @@ d) El titular és aritmèticament correcte. Explica per què, tot i així, indue
     </ul>
 
     <p style="margin-bottom:16px">Aquest fitxer carrega les fórmules (KaTeX) i la tipografia des d'un CDN: cal connexió a internet el primer cop que s'obre en un dispositiu.</p>
-    <p><a href="https://elenaas-math.github.io/">Autoria:</a> © 2026 by <a href="https://elenaas-math.github.io/">Elena Álvarez Spagnolo</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"></p>
+    <p class="eas-llicencia"><button type="button" class="eas-autoria" popovertarget="eas-declaracio-ia" aria-haspopup="dialog" title="Mostra la declaració d’ús d’IA">Autoria<span aria-hidden="true">&nbsp;ⓘ</span>:</button> © 2026 by <a href="https://elenaas-math.github.io/">Elena Álvarez Spagnolo</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="Creative Commons"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="Reconeixement"><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="No comercial"><img src="https://mirrors.creativecommons.org/presskit/icons/nd.svg" alt="Sense obra derivada"></p>
+    <div id="eas-declaracio-ia" class="eas-ia" popover role="dialog" aria-labelledby="eas-titol-ia">
+      <p><strong id="eas-titol-ia">Declaració d’ús d’IA:</strong> aquest contingut s’ha elaborat amb el suport d’eines d’intel·ligència artificial generativa: Claude, en tasques de programació, estructuració i part de la redacció, i ChatGPT, en la generació de les imatges de presentació (miniatures). Els continguts de base són d’elaboració pròpia. L’autora n’ha dissenyat la proposta didàctica i n’ha revisat, adaptat i validat tot el contingut, i n’assumeix la plena responsabilitat.</p>
+      <button type="button" class="eas-tanca" popovertarget="eas-declaracio-ia" popovertargetaction="hide">Tanca</button>
+    </div>
   </div>
 </footer>
 </main>
@@ -2273,6 +2295,17 @@ function construeixApendix(){
 if (document.readyState === 'complete') renderitza();
 else window.addEventListener('load', renderitza);
 
+})();
+</script>
+<script>
+(function(){
+  var d = document.getElementById('eas-declaracio-ia');
+  if (!d || 'popover' in HTMLElement.prototype) return;
+  d.hidden = true; d.classList.add('eas-fb');
+  document.querySelectorAll('[popovertarget="eas-declaracio-ia"]').forEach(function(b){
+    b.addEventListener('click', function(){ d.hidden = !d.hidden; if (!d.hidden) d.querySelector('.eas-tanca').focus(); });
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') d.hidden = true; });
 })();
 </script>
 </body>
